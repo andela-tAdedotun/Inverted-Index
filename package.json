@@ -1,0 +1,23 @@
+{
+  "name": "inverted-index",
+  "version": "0.0.1",
+  "description": "An implememntation of the inverted index data structure",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-tAdedotun/Inverted-Index.git"
+  },
+  "author": "Taiwo Adedotun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andela-tAdedotun/Inverted-Index/issues"
+  },
+  "homepage": "https://github.com/andela-tAdedotun/Inverted-Index#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1"
+  }
+}
