@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
-gulpfile.js
-.eslintrc.json
 test copy.json
 test.json
+test2.json
+jasmine-standalone-2.5.2

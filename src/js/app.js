@@ -1,0 +1,93 @@
+(() => {
+  const app = angular.module('invertedIndex', []);
+
+  app.controller('InvertedCtrl', ($scope) => {
+    const scope = $scope;
+
+    scope.newIndex = new InvertedIndex();
+    scope.uploadedFiles = {};
+    scope.indexedFiles = {};
+    scope.tableHeads = [];
+    scope.searchString = document.getElementById('search').innerHTML;
+    scope.displayIndex = undefined;
+
+    scope.isEmpty = (object) => {
+      return Object.keys(object).length === 0;
+    };
+
+    function displayMessage(message) {
+      scope.message = message;
+      $('#response-modal').modal();
+      scope.$evalAsync();
+    }
+
+    scope.readFile = (inputDom) => {
+      const files = [];
+      for (let i = 0; i < inputDom.target.files.length; i += 1) {
+        files.push(inputDom.target.files[i]);
+      }
+
+      files.forEach((file) => {
+        const fileName = file.name;
+
+        try {
+          scope.newIndex.readFile(file, fileName).then((content) => {
+            scope.uploadedFiles[fileName] = JSON.parse(content);
+            const uploadedFilesList = Object.keys(scope.uploadedFiles);
+            scope.fileToIndex = uploadedFilesList[uploadedFilesList.length - 1];
+
+            scope.$evalAsync();
+          }).catch((err) => {
+            displayMessage(err);
+          });
+        } catch (err) {
+          displayMessage('Invalid file format. Only JSON files are allowed.');
+        }
+      });
+    };
+
+    document.getElementById('file').addEventListener('change', scope.readFile);
+
+    scope.createIndex = () => {
+      const fileChoice = scope.fileToIndex;
+
+      try {
+        const createdIndex = scope.newIndex
+                              .createIndex(fileChoice, scope.uploadedFiles[fileChoice]);
+        scope.indexedFiles[fileChoice] = createdIndex[0];
+        scope.justIndexed = createdIndex[1];
+        const indexedFilesList = Object.keys(scope.indexedFiles);
+
+        scope.tableHeads = scope.newIndex.getTitles(scope.uploadedFiles[fileChoice]);
+        scope.fileToSearch = indexedFilesList[indexedFilesList.length - 1];
+
+        if (indexedFilesList.length > 1) {
+          scope.moreThanOneIndexed = true;
+        }
+      } catch (err) {
+        displayMessage(err.message);
+      }
+
+      scope.displayIndex = true;
+    };
+
+    scope.searchIndex = () => {
+      scope.searchResult = {};
+
+      if (!scope.searchString) {
+        displayMessage('Please enter a search query.');
+      }
+
+      if (scope.fileToSearch === 'All Files') {
+        scope.searchResult = scope.newIndex.searchIndex('All Files', scope.searchString, scope.indexedFiles);
+        scope.displayIndex = false;
+        scope.allFiles = true;
+      } else {
+        scope.searchResult[scope.fileToSearch] =
+                scope.newIndex.searchIndex(scope.fileToSearch, scope.searchString);
+      }
+
+      scope.displayIndex = false;
+    };
+  });
+})();

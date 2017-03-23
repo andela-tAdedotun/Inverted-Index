@@ -1,3 +1,0 @@
-function tqio() {
-  return 'hi';
-}

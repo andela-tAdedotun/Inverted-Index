@@ -2,10 +2,9 @@
   box-sizing: border-box;
 }
 
-section {
+body {
   margin-left: 100px;
   margin-right: 100px;
-  position: relative;
 }
 
 #navbar {
@@ -13,7 +12,12 @@ section {
   border: 0px solid #f4f2f2;
   box-shadow: 2px 2px 2px #7f7a7a;
   position: relative;
-  padding: 10px;
+  padding: 12px;
+  width: 100%;
+}
+
+#aboutButton {
+  width: 100px;
 }
 
 #home {
@@ -28,16 +32,21 @@ li {
   display: inline;
 }
 
-li a {
+#navbar li a {
   color: #0094ce;
   text-decoration: none;
   padding: 13px;
 }
 
 h1 {
-  width: 70%;
   font-size: 2.7em;
   font-weight: normal;
+  color: #5e6166;
+  font-family: 'Times New Romans';
+  text-align: center;
+}
+
+h4 {
   color: #5e6166;
 }
 
@@ -48,12 +57,11 @@ h1 {
 }
 
 .choices {
-  height: 90px;
-  padding-left: 10px;
-  width: 25%;
-  border: 1px solid #8895aa;
+  /*padding-top: 15px;
+  padding-left: 10px;*/
   border-radius: 3px;
   position: relative;
+  /* border: 1px solid black; */
   float: left;
   margin-bottom: 45px;
 }
@@ -69,14 +77,19 @@ h1 {
 
 label {
     font-size: 1em;
-    font-weight: 400;
+    font-weight: 350;
     color: white;
     padding: 5px;
     background-color: #0094ce;
     display: inline-block;
-    box-shadow: 1.5px 1.5px 1.5px #8895aa;
+    width: 55%;
+    text-align: center;
     border-radius: 3px;
     cursor: pointer;
+}
+
+.fa.fa-upload {
+  margin-right: 5px;
 }
 
 #searchbox {
@@ -108,9 +121,12 @@ label {
 }
 
 select {
+  display: inline-block;
   height: 30px;
   width: 130px;
   overflow: hidden;
+  outline: 0;
+  box-shadow: none;
 }
 
 #searchSelect {
@@ -128,10 +144,41 @@ button {
   padding: 8px;
   font-size: 0.8em;
   height: 30px;
+  outline: 0;
+  box-shadow: none;
 }
 
 button#searchIndex {
   position: absolute;
-  right: 8px;
-  top: 56%;
+  right: 10px;
+  display: inline-block;
+  width: 120px;
+}
+
+.modal-title {
+  color: #c42940;
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+.fa-times {
+  color: #c42940;
+}
+
+.fa-check {
+  color: #0094ce;
+}
+
+.indexResult {
+  clear: both;
+  width: 100%;
+}
+
+#recentIndexed a {
+  color: #0094ce;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 13px;
 }
