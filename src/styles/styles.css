@@ -16,6 +16,10 @@ body {
   width: 100%;
 }
 
+#dropdown {
+  background-color: #0094ce;
+}
+
 #aboutButton {
   width: 100px;
 }
@@ -52,7 +56,6 @@ h4 {
 
 #choose {
   margin-top: 60px;
-  position: relative;
   width: 100%;
 }
 
@@ -61,8 +64,7 @@ h4 {
   padding-left: 10px;*/
   border-radius: 3px;
   position: relative;
-  /* border: 1px solid black; */
-  float: left;
+  /*border: 1px solid black;*/
   margin-bottom: 45px;
 }
 
@@ -97,7 +99,7 @@ label {
   height: 45px;
   vertical-align: middle;
   white-space: nowrap;
-  position: relative;
+  /*position: absolute;*/
   display: inline-block;
 }
 
@@ -130,8 +132,11 @@ select {
 }
 
 #searchSelect {
-  position: absolute;
-  display: inline-block;
+  position: relative;
+  top: -7px;
+  vertical-align: middle;
+  /*position: absolute;*/
+  /*top: 0px;*/
 }
 
 button {
@@ -150,9 +155,9 @@ button {
 
 button#searchIndex {
   position: absolute;
-  right: 10px;
   display: inline-block;
   width: 120px;
+  margin-left: 20px;
 }
 
 .modal-title {

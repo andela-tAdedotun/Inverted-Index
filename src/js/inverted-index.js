@@ -146,13 +146,19 @@ class InvertedIndex {
       indices[word] = docsWithWord;
     });
 
-    const indexedDocs = JSON.parse(localStorage.indexedDocs);
-    indexedDocs[fileName] = indices;
+    const fileTitles = this.getTitles(fileContent);
+
+    let indexedDocs = JSON.parse(localStorage.indexedDocs);
+    indexedDocs[fileName] = [indices, fileTitles];
     localStorage.indexedDocs = JSON.stringify(indexedDocs);
     return [indices, fileName];
   }
 
   getRecentlyIndexed() {
+    if (!localStorage.indexedDocs) {
+      localStorage.indexedDocs = JSON.stringify({});
+    }
+
     let allRecentlyIndexed = Object.keys(JSON.parse(localStorage.indexedDocs));
     allRecentlyIndexed = allRecentlyIndexed.slice(0, 15);
     return allRecentlyIndexed;
@@ -165,13 +171,24 @@ class InvertedIndex {
     return fileIndices;
   }
 
+  indexInLocalStorage() {
+    if (!localStorage.indexedDocs) {
+      return false;
+    } else if (Object.keys(JSON.parse(localStorage.indexedDocs)).length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
   buildSearchResult(fileName, searchString) {
     this.fileName = fileName;
     const regex = /[a-zA-Z]+/g;
     const matches = [];
     const searchResults = {};
     let found;
-    const indexOfFile = JSON.parse(localStorage.indexedDocs)[this.fileName];
+    const indexOfFile = JSON.parse(localStorage.indexedDocs)[this.fileName][0];
 
     while (found = regex.exec(searchString)) {
       matches.push(found[0]);

@@ -16,9 +16,10 @@
       <ul>
         <li id="home"><a href="#">Inverted Index</a></li>
 
-        <li class="right"> <a href="#"> Documentation </a> </li>
+        <!-- <li class="right"> <a href="#"> Documentation </a> </li> -->
 
-        <button data-toggle="collapse" data-target="#about" id="aboutButton">About</button>
+
+        <button class="right" data-toggle="collapse" data-target="#about" id="aboutButton">About</button>
           <div id="about" class="collapse">
             <pre>
               An inverted index consists of a list of all the unique words that appear in any
@@ -51,25 +52,31 @@
       </div>
     </div>
 
-    <h1>Upload JSON file. Create Index. Search!</h1>
+    <h1 style="margin-left: 20px; margin-bottom: 30px;">Upload JSON file. Create Index. Search!</h1>
+
+    <div ng-show="indexInLocalStorage" class="dropdown right" style="display: inline-block">
+      <button id="dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Recently Indexed <span class="caret"></span> </button>
+            <ul class="dropdown-menu">
+              <li ng-repeat="file in recentlyIndexed" style="display: inline-block; cursor: pointer"> <a ng-click="getIndex(file)">{{file}}</a> <div style="margin-left: 10px"></div> </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="choices" style="width: 22%; display; inline-block">
+      <input type="file" id="file" multiple="multiple">
+      <label for="file" style="width: 200px"> <span><i class="fa fa-upload" aria-hidden="true"></i></span> Upload JSON </label>
+    </div>
 
     <section>
     <div id="choose">
 
-      <div class="choices" style="width: 22%">
-        <p> Upload File </p>
-        <input type="file" id="file" multiple="multiple">
-        <label for="file" style="width: 200px"> <span><i class="fa fa-upload" aria-hidden="true"></i></span> Upload JSON </label>
-      </div>
-
-      <div class="choices clearfix" ng-hide="isEmpty(uploadedFiles)" style="width: 25%">
+      <div class="choices clearfix" ng-hide="displayCreate === false">
         <p> Create Index </p>
         <select ng-model="fileToIndex" ng-options="fileName as fileName for (fileName, value) in uploadedFiles"> </select>
         <button class="createIndex" ng-click="createIndex()" style="margin-left: 10px">Create Index</button>
       </div>
 
-      <div class="choices clearfix" style="width: 44%" ng-hide="isEmpty(indexedFiles)">
-        <p> Search Index </p>
+      <div class="choices clearfix" ng-hide="isEmpty(indexedFiles)">
         <div id="searchbox">
           <span class="icon"><i class="fa fa-search"></i></span>
           <input type="search" id="search" placeholder="Search..." ng-model="searchString" />
@@ -87,15 +94,6 @@
 
     <!-- <select ng-model="recentlyIndexed[0]" ng-show="recentlyIndexed.length > 0" ng-options="stored for stored in recentlyIndexed">
     </select> -->
-
-    <!-- <button data-toggle="collapse" data-target="#recentIndexed">Recently Indexed</button>
-      <div id="recentIndexed" class="collapse">
-        <table>
-          <tr>
-            <td ng-repeat="file in recentlyIndexed" style="display: block"> <a ng-click="getIndex(file)">{{file}}</a> <div style="margin-left: 10px"><button>x</button></div> </td>
-          </tr>
-        </table>
-      </div> -->
 
     <div class="indexResult">
       <h2>
@@ -127,7 +125,7 @@
           <thead>
             <tr>
               <th>Words</th>
-              {{tableHeads = newIndex.getTitles(uploadedFiles[file]); ""}}
+              {{tableHeads = newIndex.getIndex(file)[1]; ""}}
               <th ng-repeat="title in tableHeads track by $index">{{title}}</th>
             </tr>
           </thead>

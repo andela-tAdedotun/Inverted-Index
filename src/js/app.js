@@ -8,8 +8,13 @@
     scope.uploadedFiles = {};
     scope.indexedFiles = {};
     scope.tableHeads = [];
+    scope.recentlyIndexed = scope.newIndex.getRecentlyIndexed();
     scope.searchString = document.getElementById('search').innerHTML;
-    scope.displayIndex = undefined;
+
+    scope.indexInLocalStorage = scope.newIndex.indexInLocalStorage();
+
+    scope.displayCreate = false;
+    scope.displayIndex = false;
 
     scope.isEmpty = (object) => {
       return Object.keys(object).length === 0;
@@ -33,6 +38,7 @@
         try {
           scope.newIndex.readFile(file, fileName).then((content) => {
             scope.uploadedFiles[fileName] = JSON.parse(content);
+            scope.displayCreate = true;
             const uploadedFilesList = Object.keys(scope.uploadedFiles);
             scope.fileToIndex = uploadedFilesList[uploadedFilesList.length - 1];
 
@@ -89,5 +95,25 @@
 
       scope.displayIndex = false;
     };
+
+    scope.getIndex = (fileName) => {
+      scope.indexedFiles[fileName] = scope.newIndex.getIndex(fileName)[0];
+      scope.uploadedFiles[fileName] = [scope.indexedFiles[fileName]];
+      scope.justIndexed = fileName;
+
+      const indexedFilesList = Object.keys(scope.indexedFiles);
+      scope.tableHeads = scope.newIndex.getIndex(fileName)[1];
+      scope.fileToSearch = indexedFilesList[indexedFilesList.length - 1];
+
+      if (indexedFilesList.length > 1) {
+        scope.moreThanOneIndexed = true;
+      }
+
+      scope.displayIndex = true;
+    };
+
+    // scope.deleteIndex = (fileName) => {
+    //   scope.newIndex.deleteIndex(fileName);
+    // }
   });
 })();
