@@ -1,4 +1,15 @@
+/**
+ * Implementation of the inverted index app.
+ * @class
+ */
+
 class InvertedIndex {
+  /**
+   * readFile: Reads the contents of file as text
+   * @param {file} file - the file to be read
+   * @param {string} fileName- the name of the file to be read
+   * @return {promise} - promise object to be acted on if file reading is succesful or not
+   */
 
   readFile(file, fileName) {
     this.file = file;
@@ -27,6 +38,13 @@ class InvertedIndex {
     });
   }
 
+  /**
+   * validateFile: Checks if documents in object have the specified structure of title and text keys
+   * @param {Object} file - the object to validate for required structure
+   * @throws - throws an error if object doesn't does not have title and text keys
+   * @return {Object} - returns object back to caller if object is valid
+   */
+
   validateFile(file) {
     this.file = file;
     this.file.forEach((doc) => {
@@ -38,10 +56,26 @@ class InvertedIndex {
     return this.file;
   }
 
+  /**
+   * splitText: Splits string using one space as delimiter
+   * @example
+   * // returns ['Two', 'roads', 'diverged...']
+   * this.splitText('Two roads diverged...')
+   * @param {string} text - the string to be split
+   * @return {array} - returns an array of words
+   */
+
   splitText(text) {
     this.text = text;
     return this.text.split(' ');
   }
+
+  /**
+   * tokenize: Returns an array of valid words in all text fields of file.
+   // Also returns an array of valid words in a single string.
+   * @param {(Object | string)} - the object whose texts are to be tokenized or string to tokenize
+   * @return {array} - array of valid words
+   */
 
   tokenize(file) {
     const validWord = /[a-zA-Z]+/;
@@ -82,6 +116,12 @@ class InvertedIndex {
     }
   }
 
+  /**
+   * getTitles: Gets the titles of documents in uploaded file
+   * @param {Object} file - the object whose document titles you want to get
+   * @return {array} - returns an array of document titles
+   */
+
   getTitles(file) {
     this.file = file;
     const titles = [];
@@ -105,6 +145,12 @@ class InvertedIndex {
     return titles;
   }
 
+  /**
+   * getTitles: Turns the text fields of documents to lower case
+   * @param {Object} file - the object whose document texts you want to lower
+   * @return {Object} - returns the object with its text fields lowered
+   */
+
   lowerDocText(file) {
     this.file = file;
     this.file.forEach((doc) => {
@@ -114,6 +160,14 @@ class InvertedIndex {
 
     return this.file;
   }
+
+  /**
+   * createIndex: Creates indices (words and indices of documents they appear in) for a file
+   * @param {string} fileName - the name of the file you want to index
+   * @param {Object} fileContent - object representing the contents of file
+   * @throws - throws an error if object does not conform to required structure
+   * @return {array} - returns an array containing indices for file and titles of documents in file
+   */
 
   createIndex(fileName, fileContent) {
     if (!localStorage.indexedDocs) {
@@ -154,6 +208,12 @@ class InvertedIndex {
     return [indices, fileName];
   }
 
+  /**
+   * getRecentlyIndexed: Creates indices (words and indices of documents they appear in) for a file
+   * @param None
+   * @return {array} - returns an array of at most 15 recently indexed files
+   */
+
   getRecentlyIndexed() {
     if (!localStorage.indexedDocs) {
       localStorage.indexedDocs = JSON.stringify({});
@@ -164,12 +224,24 @@ class InvertedIndex {
     return allRecentlyIndexed;
   }
 
+  /**
+   * getIndex: Gets index of fileName passed to it from localStorage
+   * @param {string} fileName - the name of the file whose index you want to get
+   * @return {Object} - returns inverted index stored for file in localStorage
+   */
+
   getIndex(fileName) {
     this.fileName = fileName;
     const fileIndices = JSON.parse(localStorage.indexedDocs)[this.fileName];
 
     return fileIndices;
   }
+
+  /**
+   * getIndex: Gets index of fileName passed to it from localStorage
+   * @param {string} fileName - the name of the file whose index you want to get
+   * @return {boolean} - checks if any index has been stored in localStorage or not
+   */
 
   indexInLocalStorage() {
     if (!localStorage.indexedDocs) {
@@ -181,6 +253,12 @@ class InvertedIndex {
     }
   }
 
+  /**
+   * buildSearchResult: Builds search result for fileName in localStorage
+   * @param {string} fileName - the name of the file to build search result for
+   * @param {string} searchString - the search query (a list of words separated by any delimeter)
+   * @return {Object} - object containing search words that appear in index
+   */
 
   buildSearchResult(fileName, searchString) {
     this.fileName = fileName;
@@ -201,6 +279,14 @@ class InvertedIndex {
     return searchResults;
   }
 
+  /**
+   * searchIndex: Searches created indices for words in search string
+   * @param {string} fileName - the name of the file to build search result for
+   * @param {string} searchString - the search query (a list of words separated by any delimeter)
+   *@param {Object} indexedFiles - object containing more than one file names and their indices
+   * @return {Object} - object containing search words that appear in index
+   */
+
   searchIndex(fileName, searchString, indexedFiles) {
     this.fileName = fileName;
     this.searchString = searchString.toLowerCase();
@@ -218,6 +304,12 @@ class InvertedIndex {
 
     return this.buildSearchResult(this.fileName, this.searchString);
   }
+
+  /**
+   * deleteIndex: Deletes the specified fileName from localStorage
+   * @param {string} fileName - the name of the file you want to delete
+   * @return {string}
+   */
 
   deleteIndex(fileName) {
     this.fileName = fileName;
