@@ -109,6 +109,7 @@
         scope.moreThanOneIndexed = true;
       }
 
+      scope.displayCreate = false;
       scope.displayIndex = true;
     };
 

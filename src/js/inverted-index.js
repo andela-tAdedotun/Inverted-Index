@@ -283,7 +283,7 @@ class InvertedIndex {
    * searchIndex: Searches created indices for words in search string
    * @param {string} fileName - the name of the file to build search result for
    * @param {string} searchString - the search query (a list of words separated by any delimeter)
-   *@param {Object} indexedFiles - object containing more than one file names and their indices
+   * @param {Object} indexedFiles - object containing more than one file names and their indices
    * @return {Object} - object containing search words that appear in index
    */
 

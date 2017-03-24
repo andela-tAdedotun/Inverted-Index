@@ -22,6 +22,8 @@ body {
 
 #aboutButton {
   width: 100px;
+  position: absolute;
+  right: 20px;
 }
 
 #home {
@@ -186,4 +188,10 @@ button#searchIndex {
   text-decoration: none;
   cursor: pointer;
   padding: 13px;
+}
+
+#recentIndexed {
+  font-size: 1em;
+  font-weight: 350;
+  text-align: center;
 }
