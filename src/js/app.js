@@ -70,11 +70,12 @@
         if (indexedFilesList.length > 1) {
           scope.moreThanOneIndexed = true;
         }
+
+        scope.displayIndex = true;
       } catch (err) {
+        scope.displayIndex = false;
         displayMessage(err.message);
       }
-
-      scope.displayIndex = true;
     };
 
     scope.searchIndex = () => {
