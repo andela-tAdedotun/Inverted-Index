@@ -57,20 +57,6 @@ class InvertedIndex {
   }
 
   /**
-   * splitText: Splits string using one space as delimiter
-   * @example
-   * // returns ['Two', 'roads', 'diverged...']
-   * this.splitText('Two roads diverged...')
-   * @param {string} text - the string to be split
-   * @return {array} - returns an array of words
-   */
-
-  splitText(text) {
-    this.text = text;
-    return this.text.split(' ');
-  }
-
-  /**
    * tokenize: Returns an array of valid words in all text fields of file.
    // Also returns an array of valid words in a single string.
    * @param {(Object | string)} - the object whose texts are to be tokenized or string to tokenize
@@ -78,23 +64,19 @@ class InvertedIndex {
    */
 
   tokenize(file) {
-    const validWord = /[a-zA-Z]+/;
+    const validWord = /[a-zA-Z]+/g;
     this.file = file;
-    let words = [];
+    let words = '';
+    let found;
+    const validWordsArray = [];
 
     if (typeof (this.file) === 'object') {
       for (let i = 0; i < this.file.length; i += 1) {
-        words = words.concat(this.splitText(this.file[i].text));
+        words = words.concat(this.file[i].text + ' ');
       }
 
-      const validWordsArray = [];
-
-      for (let i = 0; i < words.length; i += 1) {
-        const isValidWord = validWord.exec(words[i]);
-
-        if (isValidWord) {
-          validWordsArray.push(isValidWord[0]);
-        }
+      while (found = validWord.exec(words)) {
+        validWordsArray.push(found[0]);
       }
 
       // make the words in array unique and sort them
@@ -102,17 +84,12 @@ class InvertedIndex {
     }
 
     else if (typeof (this.file) === 'string') {
-      const wordsInString = this.splitText(this.file);
 
-      for (let i = 0; i < wordsInString.length; i += 1) {
-        const isValidWord = validWord.exec(wordsInString[i]);
-
-        if (isValidWord) {
-          words.push(isValidWord[0]);
-        }
+      while (found = validWord.exec(this.file)) {
+        validWordsArray.push(found[0]);
       }
 
-      return words;
+      return validWordsArray;
     }
   }
 
@@ -170,10 +147,6 @@ class InvertedIndex {
    */
 
   createIndex(fileName, fileContent) {
-    if (!localStorage.indexedDocs) {
-      localStorage.indexedDocs = JSON.stringify({});
-    }
-
     let fileRead;
 
     try {
@@ -191,6 +164,7 @@ class InvertedIndex {
       const docsWithWord = [];
 
       fileRead.forEach((doc, docIndex) => {
+        // split doc's text into an array to allow whole word checks
         const wordsInDoc = this.tokenize(doc.text);
         if (wordsInDoc.indexOf(word) !== -1) {
           docsWithWord.push(docIndex);
@@ -244,9 +218,7 @@ class InvertedIndex {
    */
 
   indexInLocalStorage() {
-    if (!localStorage.indexedDocs) {
-      return false;
-    } else if (Object.keys(JSON.parse(localStorage.indexedDocs)).length === 0) {
+    if (Object.keys(JSON.parse(localStorage.indexedDocs)).length === 0) {
       return false;
     } else {
       return true;
@@ -262,15 +234,9 @@ class InvertedIndex {
 
   buildSearchResult(fileName, searchString) {
     this.fileName = fileName;
-    const regex = /[a-zA-Z]+/g;
-    const matches = [];
+    const matches = this.tokenize(searchString);
     const searchResults = {};
-    let found;
     const indexOfFile = JSON.parse(localStorage.indexedDocs)[this.fileName][0];
-
-    while (found = regex.exec(searchString)) {
-      matches.push(found[0]);
-    }
 
     matches.forEach((searchItem) => {
       searchResults[searchItem] = indexOfFile[searchItem];
@@ -311,14 +277,12 @@ class InvertedIndex {
    * @return {string}
    */
 
-  deleteIndex(fileName) {
-    this.fileName = fileName;
-    const fileIndices = JSON.parse(localStorage.indexedDocs);
-    delete fileIndices[this.fileName];
-    localStorage.indexedDocs = JSON.stringify(fileIndices);
-    return 'File index deleted';
-  }
+  // deleteIndex(fileName) {
+  //   this.fileName = fileName;
+  //   const fileIndices = JSON.parse(localStorage.indexedDocs);
+  //   delete fileIndices[this.fileName];
+  //   localStorage.indexedDocs = JSON.stringify(fileIndices);
+  //   return 'File index deleted';
+  // }
 
 }
-
-module.exports = InvertedIndex;
