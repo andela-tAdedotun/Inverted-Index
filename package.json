@@ -4,7 +4,7 @@
   "description": "An implememntation of the inverted index data structure",
   "main": "/src/js/inverted-index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start --single-run"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,12 @@
     "eslint-config-airbnb-base": "^11.1.1",
     "eslint-plugin-import": "^2.2.0",
     "gulp": "^3.9.1",
-    "jasmine": "^2.5.3"
+    "jasmine": "^2.5.3",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.5.0",
+    "karma-cli": "^1.0.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "phantomjs": "^2.1.7"
   }
 }
