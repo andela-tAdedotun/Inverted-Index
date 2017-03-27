@@ -11,4 +11,4 @@ before_install:
 before_script:
   - npm install
 
-script: script: karma start --single-run
+script: karma start --single-run
