@@ -1,4 +1,3 @@
-// const InvertedIndex = require('../../src/js/inverted-index.js');
 const newIndex = new InvertedIndex();
 
 const testFile = [
