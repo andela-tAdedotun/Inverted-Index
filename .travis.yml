@@ -1,3 +1,6 @@
+sudo: required
+dist: trusty
+
 language: node_js
 
 node_js:
@@ -11,4 +14,4 @@ before_install:
 before_script:
   - npm install
 
-script: script: karma start --single-run
+script: karma start --single-run
