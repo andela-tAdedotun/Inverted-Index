@@ -11,11 +11,3 @@ gulp.task('default', function() {
 
   gulp.watch('src/**/**', reload);
 });
-
-// gulp.task('reload', ['nodemon'], () => {
-//   browserSync.init(null, {
-//     proxy: 'http://localhost:3000',
-//     port: 5000,
-//     files: ['public/**/**'],
-//   });
-// });
