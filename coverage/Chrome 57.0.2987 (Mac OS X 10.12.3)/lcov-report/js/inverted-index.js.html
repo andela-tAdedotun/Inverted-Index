@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for js/inverted-index.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">js/</a> inverted-index.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.6% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>84/97</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">91.67% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>22/24</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">90.91% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/11</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.6% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>84/97</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">75×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1678×</span>
+<span class="cline-any cline-yes">1678×</span>
+<span class="cline-any cline-yes">1678×</span>
+<span class="cline-any cline-yes">1678×</span>
+<span class="cline-any cline-yes">1678×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1678×</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-yes">70×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-yes">987×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1653×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1652×</span>
+<span class="cline-any cline-yes">24081×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1652×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">57×</span>
+<span class="cline-any cline-yes">23×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">80×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-yes">74×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-yes">30×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">561×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">561×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1647×</span>
+<span class="cline-any cline-yes">1647×</span>
+<span class="cline-any cline-yes">960×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">561×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-yes">24×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">20×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * Implementation of the inverted index app.
+ * @class
+ */
+&nbsp;
+class InvertedIndex {
+  /**
+   * readFile: Reads the contents of file as text
+   * @param {file} file - the file to be read
+   * @param {string} fileName- the name of the file to be read
+   * @return {promise} - promise object to be acted on if file reading is succesful or not
+   */
+&nbsp;
+  readFile<span class="fstat-no" title="function not covered" >(file, fileName) {</span>
+<span class="cstat-no" title="statement not covered" >    this.file = file;</span>
+<span class="cstat-no" title="statement not covered" >    const validJson = /.+\.json$/;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    if (!validJson.exec(fileName)) {</span>
+<span class="cstat-no" title="statement not covered" >      return false;</span>
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return new Promise((resolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      const fileReader = new FileReader();</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      fileReader.onload = (fileBeingRead) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        const fileContent = fileBeingRead.target.result;</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        try {</span>
+<span class="cstat-no" title="statement not covered" >          JSON.parse(fileContent);</span>
+        } catch (err) {
+<span class="cstat-no" title="statement not covered" >          reject('This JSON file is invalid. Check the file and try again.');</span>
+        }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        resolve(fileContent);</span>
+      };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >      fileReader.readAsText(this.file);</span>
+    });
+  }
+&nbsp;
+  /**
+   * validateFile: Checks if documents in object have the specified structure of title and text keys
+   * @param {Object} file - the object to validate for required structure
+   * @throws - throws an error if object doesn't does not have title and text keys
+   * @return {Object} - returns object back to caller if object is valid
+   */
+&nbsp;
+  validateFile(file) {
+    this.file = file;
+    this.file.forEach((doc) =&gt; {
+      if (!(Object.prototype.hasOwnProperty.call(doc, 'title') &amp;&amp; Object.prototype.hasOwnProperty.call(doc, 'text'))) {
+        throw new Error('Your JSON file does not have the expected format. Documents are to have title and text keys alone.');
+      }
+    });
+&nbsp;
+    return this.file;
+  }
+&nbsp;
+  /**
+   * tokenize: Returns an array of valid words in all text fields of file.
+   // Also returns an array of valid words in a single string.
+   * @param {(Object | string)} - the object whose texts are to be tokenized or string to tokenize
+   * @return {array} - array of valid words
+   */
+&nbsp;
+  tokenize(file) {
+    const validWord = /[a-zA-Z]+/g;
+    this.file = file;
+    let words = '';
+    let found;
+    const validWordsArray = [];
+&nbsp;
+    if (typeof (this.file) === 'object') {
+      for (let i = 0; i &lt; this.file.length; i += 1) {
+        words = words.concat(this.file[i].text + ' ');
+      }
+&nbsp;
+      while (found = validWord.exec(words)) {
+        validWordsArray.push(found[0]);
+      }
+&nbsp;
+      // make the words in array unique and sort them
+      return [...new Set(validWordsArray)].sort();
+    }
+&nbsp;
+    else if (typeof (this.file) === 'string') {
+&nbsp;
+      while (found = validWord.exec(this.file)) {
+        validWordsArray.push(found[0]);
+      }
+&nbsp;
+      return validWordsArray;
+    }
+  }
+&nbsp;
+  /**
+   * getTitles: Gets the titles of documents in uploaded file
+   * @param {Object} file - the object whose document titles you want to get
+   * @return {array} - returns an array of document titles
+   */
+&nbsp;
+  getTitles(file) {
+    this.file = file;
+    const titles = [];
+    const texts = [];
+&nbsp;
+    for (let i = 0; i &lt; this.file.length; i += 1) {
+      let fileTitle = this.file[i].title;
+&nbsp;
+      if (texts.indexOf(this.file[i].text) === -1) {
+        if (titles.indexOf(fileTitle) !== -1) {
+          fileTitle += ' - Copy';
+        }
+        titles.push(fileTitle);
+      } else if (titles.indexOf(fileTitle) === -1) {
+        titles.push(fileTitle);
+      }
+&nbsp;
+      texts.push(this.file[i].text);
+    }
+&nbsp;
+    return titles;
+  }
+&nbsp;
+  /**
+   * getTitles: Turns the text fields of documents to lower case
+   * @param {Object} file - the object whose document texts you want to lower
+   * @return {Object} - returns the object with its text fields lowered
+   */
+&nbsp;
+  lowerDocText(file) {
+    this.file = file;
+    this.file.forEach((doc) =&gt; {
+      const eachDoc = doc;
+      eachDoc.text = eachDoc.text.toLowerCase();
+    });
+&nbsp;
+    return this.file;
+  }
+&nbsp;
+  /**
+   * createIndex: Creates indices (words and indices of documents they appear in) for a file
+   * @param {string} fileName - the name of the file you want to index
+   * @param {Object} fileContent - object representing the contents of file
+   * @throws - throws an error if object does not conform to required structure
+   * @return {array} - returns an array containing indices for file and titles of documents in file
+   */
+&nbsp;
+  createIndex(fileName, fileContent) {
+    let fileRead;
+&nbsp;
+    try {
+      fileRead = this.lowerDocText(fileContent);
+    } catch (err) {
+      throw new Error('Invalid file format. Only array of objects can be contained in file.');
+    }
+&nbsp;
+    this.validateFile(fileRead);
+&nbsp;
+    const indices = {};
+    const words = this.tokenize(fileRead);
+&nbsp;
+    words.forEach((word) =&gt; {
+      const docsWithWord = [];
+&nbsp;
+      fileRead.forEach((doc, docIndex) =&gt; {
+        // split doc's text into an array to allow whole word checks
+        const wordsInDoc = this.tokenize(doc.text);
+        if (wordsInDoc.indexOf(word) !== -1) {
+          docsWithWord.push(docIndex);
+        }
+      });
+&nbsp;
+      indices[word] = docsWithWord;
+    });
+&nbsp;
+    const fileTitles = this.getTitles(fileContent);
+&nbsp;
+    let indexedDocs = JSON.parse(localStorage.indexedDocs);
+    indexedDocs[fileName] = [indices, fileTitles];
+    localStorage.indexedDocs = JSON.stringify(indexedDocs);
+    return [indices, fileName];
+  }
+&nbsp;
+  /**
+   * getRecentlyIndexed: Creates indices (words and indices of documents they appear in) for a file
+   * @param None
+   * @return {array} - returns an array of at most 15 recently indexed files
+   */
+&nbsp;
+  getRecentlyIndexed() {
+    if (!localStorage.indexedDocs) {
+      localStorage.indexedDocs = JSON.stringify({});
+    }
+&nbsp;
+    let allRecentlyIndexed = Object.keys(JSON.parse(localStorage.indexedDocs));
+    allRecentlyIndexed = allRecentlyIndexed.slice(0, 15);
+    return allRecentlyIndexed;
+  }
+&nbsp;
+  /**
+   * getIndex: Gets index of fileName passed to it from localStorage
+   * @param {string} fileName - the name of the file whose index you want to get
+   * @return {Object} - returns inverted index stored for file in localStorage
+   */
+&nbsp;
+  getIndex(fileName) {
+    this.fileName = fileName;
+    const fileIndices = JSON.parse(localStorage.indexedDocs)[this.fileName];
+&nbsp;
+    return fileIndices;
+  }
+&nbsp;
+  /**
+   * getIndex: Gets index of fileName passed to it from localStorage
+   * @param {string} fileName - the name of the file whose index you want to get
+   * @return {boolean} - checks if any index has been stored in localStorage or not
+   */
+&nbsp;
+  indexInLocalStorage() {
+    if (Object.keys(JSON.parse(localStorage.indexedDocs)).length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+&nbsp;
+  /**
+   * buildSearchResult: Builds search result for fileName in localStorage
+   * @param {string} fileName - the name of the file to build search result for
+   * @param {string} searchString - the search query (a list of words separated by any delimeter)
+   * @return {Object} - object containing search words that appear in index
+   */
+&nbsp;
+  buildSearchResult(fileName, searchString) {
+    this.fileName = fileName;
+    const matches = this.tokenize(searchString);
+    const searchResults = {};
+    const indexOfFile = JSON.parse(localStorage.indexedDocs)[this.fileName][0];
+&nbsp;
+    matches.forEach((searchItem) =&gt; {
+      searchResults[searchItem] = indexOfFile[searchItem];
+    });
+&nbsp;
+    return searchResults;
+  }
+&nbsp;
+  /**
+   * searchIndex: Searches created indices for words in search string
+   * @param {string} fileName - the name of the file to build search result for
+   * @param {string} searchString - the search query (a list of words separated by any delimeter)
+   * @param {Object} indexedFiles - object containing more than one file names and their indices
+   * @return {Object} - object containing search words that appear in index
+   */
+&nbsp;
+  searchIndex(fileName, searchString, indexedFiles) {
+    this.fileName = fileName;
+    this.searchString = searchString.toLowerCase();
+&nbsp;
+    if (this.fileName === 'All Files') {
+      const resultForFile = {};
+      const allFiles = Object.keys(indexedFiles);
+&nbsp;
+      allFiles.forEach((file) =&gt; {
+        resultForFile[file] = this.buildSearchResult(file, searchString);
+      });
+&nbsp;
+      return resultForFile;
+    }
+&nbsp;
+    return this.buildSearchResult(this.fileName, this.searchString);
+  }
+&nbsp;
+  /**
+   * deleteIndex: Deletes the specified fileName from localStorage
+   * @param {string} fileName - the name of the file you want to delete
+   * @return {string}
+   */
+&nbsp;
+  // deleteIndex(fileName) {
+  //   this.fileName = fileName;
+  //   const fileIndices = JSON.parse(localStorage.indexedDocs);
+  //   delete fileIndices[this.fileName];
+  //   localStorage.indexedDocs = JSON.stringify(fileIndices);
+  //   return 'File index deleted';
+  // }
+&nbsp;
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Mar 28 2017 11:53:59 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

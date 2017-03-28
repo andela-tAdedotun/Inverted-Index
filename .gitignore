@@ -3,3 +3,4 @@ node_modules/
 test copy.json
 test.json
 test2.json
+coverage/
