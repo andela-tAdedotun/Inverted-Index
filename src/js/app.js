@@ -1,5 +1,5 @@
 (() => {
-  const app = angular.module('invertedIndex', []);
+  const app = angular.module('invertedIndex', ['angular-typed']);
 
   app.controller('InvertedCtrl', ($scope) => {
     const scope = $scope;
@@ -80,10 +80,6 @@
 
     scope.searchIndex = () => {
       scope.searchResult = {};
-
-      if (!scope.searchString) {
-        displayMessage('Please enter a search query.');
-      }
 
       if (scope.fileToSearch === 'All Files') {
         scope.searchResult = scope.newIndex.searchIndex('All Files', scope.searchString, scope.indexedFiles);
