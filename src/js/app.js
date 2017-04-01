@@ -117,6 +117,6 @@
       } else {
         scope.recentlyIndexed.splice(scope.recentlyIndexed.indexOf(fileName), 1);
       }
-    }
+    };
   });
 })();

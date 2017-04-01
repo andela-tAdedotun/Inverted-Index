@@ -326,15 +326,6 @@ describe('Tests for the InvertedIndex class', () => {
     it('should return words containing substring in search query', () => {
       expect(newIndex.searchIndex('doc.json', 'an')).toEqual({ alliance: [1], an: [1], man: [1] });
     });
-
-    it('should give value undefined to all words not in index', () => {
-      expect(newIndex.searchIndex('doc.json', 'the alice life alliance')).toEqual({
-        the: undefined,
-        alice: [0],
-        life: undefined,
-        alliance: [1],
-      });
-    });
   });
 
   describe('Tests for the deleteIndex method', () => {
