@@ -1,7 +1,5 @@
 (() => {
-  const app = angular.module('invertedIndex', []);
-
-  app.controller('InvertedCtrl', ($scope) => {
+  angular.module('invertedIndex', ['angular-typed']).controller('InvertedController', ($scope) => {
     const scope = $scope;
 
     scope.newIndex = new InvertedIndex();
@@ -9,6 +7,7 @@
     scope.indexedFiles = {};
     scope.tableHeads = [];
     scope.recentlyIndexed = scope.newIndex.getRecentlyIndexed();
+    scope.moreThanOneStored = scope.recentlyIndexed.length > 1;
     scope.searchString = document.getElementById('search').innerHTML;
 
     scope.indexInLocalStorage = scope.newIndex.indexInLocalStorage();
@@ -17,7 +16,8 @@
     scope.displayIndex = false;
 
     scope.isEmpty = (object) => {
-      return Object.keys(object).length === 0;
+      const objectIsEmpty = Object.keys(object).length === 0;
+      return objectIsEmpty;
     };
 
     function displayMessage(message) {
@@ -37,7 +37,7 @@
 
         try {
           scope.newIndex.readFile(file, fileName).then((content) => {
-            scope.uploadedFiles[fileName] = JSON.parse(content);
+            scope.uploadedFiles[fileName] = angular.fromJson(content);
             scope.displayCreate = true;
             const uploadedFilesList = Object.keys(scope.uploadedFiles);
             scope.fileToIndex = uploadedFilesList[uploadedFilesList.length - 1];
@@ -81,10 +81,6 @@
     scope.searchIndex = () => {
       scope.searchResult = {};
 
-      if (!scope.searchString) {
-        displayMessage('Please enter a search query.');
-      }
-
       if (scope.fileToSearch === 'All Files') {
         scope.searchResult = scope.newIndex.searchIndex('All Files', scope.searchString, scope.indexedFiles);
         scope.displayIndex = false;
@@ -114,8 +110,13 @@
       scope.displayIndex = true;
     };
 
-    // scope.deleteIndex = (fileName) => {
-    //   scope.newIndex.deleteIndex(fileName);
-    // }
+    scope.deleteIndex = (fileName) => {
+      scope.newIndex.deleteIndex(fileName);
+      if (fileName === 'Delete All') {
+        scope.recentlyIndexed = [];
+      } else {
+        scope.recentlyIndexed.splice(scope.recentlyIndexed.indexOf(fileName), 1);
+      }
+    };
   });
 })();
