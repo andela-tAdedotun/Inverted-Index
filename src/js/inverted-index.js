@@ -237,33 +237,16 @@ class InvertedIndex {
     const searchWords = this.tokenize(searchString.toLowerCase());
     const searchResults = {};
     const indexOfFile = JSON.parse(localStorage.indexedDocs)[this.fileName][0];
-    let count = 0;
 
     searchWords.forEach((searchItem) => {
       Object.keys(indexOfFile).forEach((word) => {
         if (word.indexOf(searchItem) > -1) {
-          count += 1;
           searchResults[word] = indexOfFile[word];
         }
       });
-
-      if (count === 0) {
-        searchResults[searchItem] = undefined;
-      }
     });
 
     return searchResults;
-
-    // Object.keys(indexOfFile).forEach((word) => {
-    //   if (word.indexOf(searchWords[searchWords.length - 1]) > -1) {
-    //     count += 1;
-    //     searchResults[word] = indexOfFile[word];
-    //   }
-    // });
-    //
-    // if (count === 0) {
-    //   searchResults[searchWords[searchWords.length - 1]] = undefined;
-    // }
   }
 
   /**
