@@ -1,3 +1,6 @@
+/* global InvertedIndex */
+/* global localStorage */
+
 const newIndex = new InvertedIndex();
 
 const testFile = [
@@ -113,7 +116,7 @@ describe('Tests for the InvertedIndex class', () => {
     });
 
     it('only takes objects and strings as arguments', () => {
-      expect(newIndex.tokenize(1000)).toBe(undefined);
+      expect(newIndex.tokenize(1000)).toEqual([]);
     });
   });
 

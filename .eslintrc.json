@@ -1,5 +1,5 @@
 {
-    "extends": ["airbnb-base", "angular", "plugin:jasmine/recommended"],
+    "extends": ["airbnb-base", "plugin:jasmine/recommended"],
     "plugins": [
         "import",
         "jasmine"
