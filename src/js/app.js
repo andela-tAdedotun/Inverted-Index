@@ -7,6 +7,7 @@
     scope.indexedFiles = {};
     scope.tableHeads = [];
     scope.recentlyIndexed = scope.newIndex.getRecentlyIndexed();
+    scope.moreThanOneStored = scope.recentlyIndexed.length > 1;
     scope.searchString = document.getElementById('search').innerHTML;
 
     scope.indexInLocalStorage = scope.newIndex.indexInLocalStorage();
@@ -109,8 +110,13 @@
       scope.displayIndex = true;
     };
 
-    // scope.deleteIndex = (fileName) => {
-    //   scope.newIndex.deleteIndex(fileName);
-    // }
+    scope.deleteIndex = (fileName) => {
+      scope.newIndex.deleteIndex(fileName);
+      if (fileName === 'Delete All') {
+        scope.recentlyIndexed = [];
+      } else {
+        scope.recentlyIndexed.splice(scope.recentlyIndexed.indexOf(fileName), 1);
+      }
+    }
   });
 })();

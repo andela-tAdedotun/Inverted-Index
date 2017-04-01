@@ -225,10 +225,11 @@ button {
   #dropdownSmall {
     display: inline;
     float: right;
-    color:
   }
 
   #dropdown {
+    border: none;
+    outline: 0;
     width: 30px;
     font-size: 1em;
     font-weight: 600;

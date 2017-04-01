@@ -19,8 +19,17 @@
       <div class="nav-buttons">
         <div ng-show="indexInLocalStorage" class="dropdown right">
           <button id="dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Recently Indexed <span class="caret"></span> </button>
-                <ul class="dropdown-menu">
-                  <li ng-repeat="file in recentlyIndexed" style="display: block; cursor: pointer"> <a ng-click="getIndex(file)">{{file}}</a> <div style="margin-left: 10px"></div> </li>
+                <ul class="dropdown-menu" ng-if="recentlyIndexed.length" ng-click="$event.stopPropagation()">
+                  <li ng-repeat="file in recentlyIndexed track by $index" style="display: block; cursor: pointer">
+                    <div style="margin-left: 10px">
+                      <a ng-click="getIndex(file)" style="float: left">{{file}}</a>
+                      <a ng-click="deleteIndex(file)" style="color: #c42940; float: right;" ng-show="recentlyIndexed[recentlyIndexed.indexOf(file)]">x</a>
+                    </div>
+                  </li>
+
+                  <li value="Delete All" ng-show="moreThanOneStored">
+                    <button ng-click="deleteIndex('Delete All')" style="width: 100%; background-color: #c42940; margin-top: 20px; border-radius: 0px;">Delete All</button>
+                  </li>
                 </ul>
             </div>
 
@@ -42,9 +51,14 @@
         <div class="dropdown" id="dropdownSmall">
           <div ng-show="indexInLocalStorage" class="dropdown right">
           <button id="dropdown" class="btn btn-primary" data-toggle="dropdown"> <i class="fa fa-file"></i> </button>
-                <ul class="dropdown-menu">
-                  <li ng-repeat="file in recentlyIndexed" style="display: block; cursor: pointer"> <a ng-click="getIndex(file)">{{file}}</a> <div style="margin-left: 10px"></div> </li>
-                </ul>
+              <ul class="dropdown-menu" ng-if="recentlyIndexed.length" ng-click="$event.stopPropagation()">
+                <li ng-repeat="file in recentlyIndexed track by $index" style="display: block; cursor: pointer;">
+                  <div style="margin-left: 10px">
+                    <a ng-click="getIndex(file)" style="float: left">{{file}}</a>
+                    <a ng-click="deleteIndex(file)" style="color: #c42940; float: right;" ng-show="recentlyIndexed[recentlyIndexed.indexOf(file)]">x</a>
+                  </div>
+                </li>
+              </ul>
             </div>
 
       </div>

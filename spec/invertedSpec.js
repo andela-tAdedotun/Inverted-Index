@@ -323,8 +323,29 @@ describe('Tests for the InvertedIndex class', () => {
         unusual: [1] });
     });
 
-    it('it should return words containing substring in search query', () => {
+    it('should return words containing substring in search query', () => {
       expect(newIndex.searchIndex('doc.json', 'an')).toEqual({ alliance: [1], an: [1], man: [1] });
+    });
+
+    it('should give value undefined to all words not in index', () => {
+      expect(newIndex.searchIndex('doc.json', 'the alice life alliance')).toEqual({
+        the: undefined,
+        alice: [0],
+        life: undefined,
+        alliance: [1],
+      });
+    });
+  });
+
+  describe('Tests for the deleteIndex method', () => {
+    it('should properly delete stored indices from localStorage', () => {
+      newIndex.deleteIndex('doc.json');
+      expect(localStorage.indexedDocs['doc.json']).toBeUndefined();
+    });
+
+    it('should delete all stored indices when "Delete All" is passed in', () => {
+      newIndex.deleteIndex('Delete All');
+      expect(Object.keys(JSON.parse(localStorage.indexedDocs)).length).toEqual(0);
     });
   });
 });
