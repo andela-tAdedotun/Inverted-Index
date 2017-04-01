@@ -1,3 +1,6 @@
+/* global InvertedIndex */
+/* global localStorage */
+
 const newIndex = new InvertedIndex();
 
 const testFile = [

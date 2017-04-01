@@ -1,12 +1,13 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
+const gulp = require('gulp');
+const browserSync = require('browser-sync');
 
-gulp.task('default', function() {
+const reload = browserSync.reload;
+
+gulp.task('default', () => {
   browserSync.init({
     server: {
       baseDir: '/Users/andeladeveloper/Documents/Code/Checkpoints/Inverted-Index/src',
-    }
+    },
   });
 
   gulp.watch('src/**/**', reload);
