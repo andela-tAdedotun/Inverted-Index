@@ -1,3 +1,7 @@
+/* global FileReader */
+/* global localStorage */
+/* exported InvertedIndex */
+
 /**
  * Implementation of the inverted index app.
  * @class
@@ -72,7 +76,7 @@ class InvertedIndex {
 
     if (typeof (this.file) === 'object') {
       for (let i = 0; i < this.file.length; i += 1) {
-        words = words.concat(this.file[i].text + ' ');
+        words = words.concat(`${this.file[i].text} `);
       }
 
       while (found = validWord.exec(words)) {
@@ -81,16 +85,15 @@ class InvertedIndex {
 
       // make the words in array unique and sort them
       return [...new Set(validWordsArray)].sort();
-    }
-
-    else if (typeof (this.file) === 'string') {
-
+    } else if (typeof (this.file) === 'string') {
       while (found = validWord.exec(this.file)) {
         validWordsArray.push(found[0]);
       }
 
       return validWordsArray;
     }
+
+    return 'Tokenization successful!';
   }
 
   /**
@@ -176,7 +179,7 @@ class InvertedIndex {
 
     const fileTitles = this.getTitles(fileContent);
 
-    let indexedDocs = JSON.parse(localStorage.indexedDocs);
+    const indexedDocs = JSON.parse(localStorage.indexedDocs);
     indexedDocs[fileName] = [indices, fileTitles];
     localStorage.indexedDocs = JSON.stringify(indexedDocs);
     return [indices, fileName];
@@ -193,9 +196,9 @@ class InvertedIndex {
       localStorage.indexedDocs = JSON.stringify({});
     }
 
-    let allRecentlyIndexed = Object.keys(JSON.parse(localStorage.indexedDocs));
-    allRecentlyIndexed = allRecentlyIndexed.slice(0, 15);
-    return allRecentlyIndexed;
+    this.allRecentlyIndexed = Object.keys(JSON.parse(localStorage.indexedDocs));
+    this.allRecentlyIndexed = this.allRecentlyIndexed.slice(0, 15);
+    return this.allRecentlyIndexed;
   }
 
   /**
@@ -218,11 +221,12 @@ class InvertedIndex {
    */
 
   indexInLocalStorage() {
-    if (Object.keys(JSON.parse(localStorage.indexedDocs)).length === 0) {
+    this.filesInStorage = Object.keys(JSON.parse(localStorage.indexedDocs));
+    if (this.filesInStorage.length === 0) {
       return false;
-    } else {
-      return true;
     }
+
+    return true;
   }
 
   /**
@@ -234,12 +238,16 @@ class InvertedIndex {
 
   buildSearchResult(fileName, searchString) {
     this.fileName = fileName;
-    const matches = this.tokenize(searchString);
+    const searchWords = this.tokenize(searchString.toLowerCase());
     const searchResults = {};
     const indexOfFile = JSON.parse(localStorage.indexedDocs)[this.fileName][0];
 
-    matches.forEach((searchItem) => {
-      searchResults[searchItem] = indexOfFile[searchItem];
+    searchWords.forEach((searchItem) => {
+      Object.keys(indexOfFile).forEach((word) => {
+        if (word.indexOf(searchItem) > -1) {
+          searchResults[word] = indexOfFile[word];
+        }
+      });
     });
 
     return searchResults;
@@ -277,12 +285,18 @@ class InvertedIndex {
    * @return {string}
    */
 
-  // deleteIndex(fileName) {
-  //   this.fileName = fileName;
-  //   const fileIndices = JSON.parse(localStorage.indexedDocs);
-  //   delete fileIndices[this.fileName];
-  //   localStorage.indexedDocs = JSON.stringify(fileIndices);
-  //   return 'File index deleted';
-  // }
+  deleteIndex(fileName) {
+    this.fileName = fileName;
+
+    if (fileName === 'Delete All') {
+      localStorage.indexedDocs = JSON.stringify({});
+    } else {
+      const fileIndices = JSON.parse(localStorage.indexedDocs);
+      delete fileIndices[this.fileName];
+      localStorage.indexedDocs = JSON.stringify(fileIndices);
+    }
+
+    return 'File index deleted';
+  }
 
 }
