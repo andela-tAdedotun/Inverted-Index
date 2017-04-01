@@ -1,7 +1,5 @@
 (() => {
-  const app = angular.module('invertedIndex', ['angular-typed']);
-
-  app.controller('InvertedCtrl', ($scope) => {
+  angular.module('invertedIndex', ['angular-typed']).controller('InvertedController', ($scope) => {
     const scope = $scope;
 
     scope.newIndex = new InvertedIndex();
@@ -17,7 +15,8 @@
     scope.displayIndex = false;
 
     scope.isEmpty = (object) => {
-      return Object.keys(object).length === 0;
+      const objectIsEmpty = Object.keys(object).length === 0;
+      return objectIsEmpty;
     };
 
     function displayMessage(message) {
@@ -37,7 +36,7 @@
 
         try {
           scope.newIndex.readFile(file, fileName).then((content) => {
-            scope.uploadedFiles[fileName] = JSON.parse(content);
+            scope.uploadedFiles[fileName] = angular.fromJson(content);
             scope.displayCreate = true;
             const uploadedFilesList = Object.keys(scope.uploadedFiles);
             scope.fileToIndex = uploadedFilesList[uploadedFilesList.length - 1];
