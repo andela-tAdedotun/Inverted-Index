@@ -58,6 +58,10 @@
                     <a ng-click="deleteIndex(file)" style="color: #c42940; float: right;" ng-show="recentlyIndexed[recentlyIndexed.indexOf(file)]">x</a>
                   </div>
                 </li>
+
+                <li value="Delete All" ng-show="moreThanOneStored">
+                  <button ng-click="deleteIndex('Delete All')" style="width: 100%; background-color: #c42940; margin-top: 20px; border-radius: 0px;">Delete All</button>
+                </li>
               </ul>
             </div>
 
