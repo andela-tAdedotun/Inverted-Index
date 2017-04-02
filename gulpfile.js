@@ -3,10 +3,10 @@ const browserSync = require('browser-sync');
 
 const reload = browserSync.reload;
 
-gulp.task('default', () => {
+gulp.task('liveReload', () => {
   browserSync.init({
     server: {
-      baseDir: '/Users/andeladeveloper/Documents/Code/Checkpoints/Inverted-Index/src',
+      baseDir: 'src',
     },
   });
 
