@@ -4,7 +4,8 @@
   "description": "An implememntation of the inverted index data structure",
   "main": "/src/js/inverted-index.js",
   "scripts": {
-    "test": "karma start --single-run"
+    "test": "karma start --single-run",
+    "start": "gulp"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,6 @@
     "eslint-plugin-angular": "^2.2.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jasmine": "^2.2.0",
-    "gulp": "^3.9.1",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
     "karma": "^1.5.0",
@@ -37,6 +37,7 @@
     "phantomjs": "^2.1.7"
   },
   "dependencies": {
-    "angular-typed": "0.0.3"
+    "angular-typed": "0.0.3",
+    "gulp": "^3.9.1"
   }
 }
