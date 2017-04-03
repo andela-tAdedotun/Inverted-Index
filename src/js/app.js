@@ -1,8 +1,3 @@
-/* global InvertedIndex */
-/* global $ */
-/* global document */
-/* global angular */
-
 (() => {
   angular.module('invertedIndex', ['angular-typed']).controller('InvertedController', ($scope) => {
     const scope = $scope;

@@ -39,6 +39,7 @@
   "dependencies": {
     "angular-typed": "0.0.3",
     "express": "^4.15.2",
+    "file-api": "^0.10.4",
     "gulp": "^3.9.1"
   }
 }
