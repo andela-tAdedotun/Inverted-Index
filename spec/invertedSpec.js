@@ -108,11 +108,13 @@ describe('Tests for the InvertedIndex class', () => {
 
   describe('Tests for the tokenize method', () => {
     it('should return a sorted array of words without non-letters', () => {
-      expect(newIndex.tokenize(shortFile)).toEqual(['Alice', 'a', 'falls', 'hole', 'into', 'rabbit']);
+      const result = ['Alice', 'a', 'falls', 'hole', 'into', 'rabbit'];
+      expect(newIndex.tokenize(shortFile)).toEqual(result);
     });
 
     it('should return only words for words not separated by space', () => {
-      expect(newIndex.tokenize('hello.boy to-home')).toEqual(['hello', 'boy', 'to', 'home']);
+      const result = ['hello', 'boy', 'to', 'home'];
+      expect(newIndex.tokenize('hello.boy to-home')).toEqual(result);
     });
 
     it('only takes objects and strings as arguments', () => {
@@ -122,19 +124,23 @@ describe('Tests for the InvertedIndex class', () => {
 
   describe('Tests for the getTitles method', () => {
     it('should return the titles of documents in an array', () => {
-      expect(newIndex.getTitles(shortFile2)).toEqual(['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.']);
+      const result = ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.'];
+      expect(newIndex.getTitles(shortFile2)).toEqual(result);
     });
 
     it('treats documents with the same name and content as one', () => {
-      expect(newIndex.getTitles(testFile)).toEqual(['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.']);
+      const result = ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.'];
+      expect(newIndex.getTitles(testFile)).toEqual(result);
     });
 
     it('should append " - Copy" to title if title already exists but has different text', () => {
-      expect(newIndex.getTitles(testFile3)).toEqual(['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.', 'The Lord of the Rings: The Fellowship of the Ring. - Copy']);
+      const result = ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.', 'The Lord of the Rings: The Fellowship of the Ring. - Copy'];
+      expect(newIndex.getTitles(testFile3)).toEqual(result);
     });
 
     it('should include title in array if it has the same text as another but different title name', () => {
-      expect(newIndex.getTitles(testFile2)).toEqual(['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.', 'The Lord of the Rings.']);
+      const result = ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.', 'The Lord of the Rings.'];
+      expect(newIndex.getTitles(testFile2)).toEqual(result);
     });
   });
 
@@ -163,7 +169,7 @@ describe('Tests for the InvertedIndex class', () => {
     });
 
     it('should return the correct indices for words in documents', () => {
-      expect(newIndex.createIndex('doc.json', shortFile2)[0]).toEqual({ a: [0],
+      const result = { a: [0],
         alice: [0],
         alliance: [1],
         an: [1],
@@ -174,11 +180,12 @@ describe('Tests for the InvertedIndex class', () => {
         man: [1],
         of: [1],
         rabbit: [0],
-        unusual: [1] });
+        unusual: [1] };
+      expect(newIndex.createIndex('doc.json', shortFile2)[0]).toEqual(result);
     });
 
     it('returns an array of file indices and the file name', () => {
-      expect(newIndex.createIndex('doc.json', shortFile2)).toEqual([{ a: [0],
+      const result = [{ a: [0],
         alice: [0],
         alliance: [1],
         an: [1],
@@ -189,7 +196,8 @@ describe('Tests for the InvertedIndex class', () => {
         man: [1],
         of: [1],
         rabbit: [0],
-        unusual: [1] }, 'doc.json']);
+        unusual: [1] }, 'doc.json'];
+      expect(newIndex.createIndex('doc.json', shortFile2)).toEqual(result);
     });
 
     it('should only accept an array of objects', () => {
@@ -205,7 +213,7 @@ describe('Tests for the InvertedIndex class', () => {
 
   describe('Tests for the getIndex method', () => {
     it('should retrieve an array of file indices and array of file titles from localStorage', () => {
-      expect(newIndex.getIndex('doc.json')).toEqual([{ a: [0],
+      const result = [{ a: [0],
         alice: [0],
         alliance: [1],
         an: [1],
@@ -216,11 +224,12 @@ describe('Tests for the InvertedIndex class', () => {
         man: [1],
         of: [1],
         rabbit: [0],
-        unusual: [1] }, ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.']]);
+        unusual: [1] }, ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.']];
+      expect(newIndex.getIndex('doc.json')).toEqual(result);
     });
 
     it('should retrieve indices of file from localStorage', () => {
-      expect(newIndex.getIndex('doc.json')[0]).toEqual({ a: [0],
+      const result = { a: [0],
         alice: [0],
         alliance: [1],
         an: [1],
@@ -231,7 +240,8 @@ describe('Tests for the InvertedIndex class', () => {
         man: [1],
         of: [1],
         rabbit: [0],
-        unusual: [1] });
+        unusual: [1] };
+      expect(newIndex.getIndex('doc.json')[0]).toEqual(result);
     });
   });
 
@@ -273,21 +283,22 @@ describe('Tests for the InvertedIndex class', () => {
 
   describe('Tests for the Search methods', () => {
     it('should return an object of words that appear in a single indexed file', () => {
+      const result = { alice: [0],
+        alliance: [1],
+        an: [1],
+        man: [1],
+        hole: [0],
+        a: [0],
+        falls: [0],
+        rabbit: [0],
+        unusual: [1] };
       expect(newIndex.searchIndex('doc.json', 'alice,an,hole a man'))
-          .toEqual({ alice: [0],
-            alliance: [1],
-            an: [1],
-            man: [1],
-            hole: [0],
-            a: [0],
-            falls: [0],
-            rabbit: [0],
-            unusual: [1] });
+          .toEqual(result);
     });
 
     it('returns an object of file names against their search results for a search of all files', () => {
       const allFilesResult = newIndex.searchIndex('All Files', 'alice,an,hole,a - man', JSON.parse(localStorage.indexedDocs));
-      expect(allFilesResult).toEqual({ 'doc.json': {
+      const result = { 'doc.json': {
         alice: [0],
         alliance: [1],
         an: [1],
@@ -310,11 +321,12 @@ describe('Tests for the InvertedIndex class', () => {
           imagination: [0],
           rabbit: [0],
           unusual: [1, 2],
-          wizard: [1, 2] } });
+          wizard: [1, 2] } };
+      expect(allFilesResult).toEqual(result);
     });
 
     it('should take search string in any case and return result', () => {
-      expect(newIndex.searchIndex('doc.json', 'ALICE,AN,HOLE A MAN')).toEqual({
+      const result = {
         alice: [0],
         alliance: [1],
         an: [1],
@@ -323,11 +335,15 @@ describe('Tests for the InvertedIndex class', () => {
         a: [0],
         falls: [0],
         rabbit: [0],
-        unusual: [1] });
+        unusual: [1] };
+      expect(newIndex.searchIndex('doc.json', 'ALICE,AN,HOLE A MAN')).toEqual(result);
     });
 
     it('should return words containing substring in search query', () => {
-      expect(newIndex.searchIndex('doc.json', 'an')).toEqual({ alliance: [1], an: [1], man: [1] });
+      const result = { alliance: [1],
+        an: [1],
+        man: [1] };
+      expect(newIndex.searchIndex('doc.json', 'an')).toEqual(result);
     });
   });
 
