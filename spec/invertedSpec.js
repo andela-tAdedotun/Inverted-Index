@@ -189,6 +189,39 @@ describe('Tests for the InvertedIndex class', () => {
     });
   });
 
+  describe('Tests for the lowerDocText method', () => {
+    it('should turn the text field of documents to lower case', () => {
+      newIndex.lowerDocText(lowerDocFile);
+      lowerDocFile.forEach((doc) => {
+        expect(doc.text).toEqual(doc.text.toLowerCase());
+      });
+    });
+
+    it('only takes an array of objects as argument', () => {
+      expect(() => { newIndex.lowerDocFile({a: 1}) }).toThrowError(TypeError);
+      expect(() => { newIndex.lowerDocFile('Taiwo') }).toThrowError(TypeError);
+    });
+
+    it('should return the object passed to it with its text fields lower cased', () => {
+      const result = [
+        {
+          title: 'Alice in Wonderland',
+          text: 'alice falls into a rabbit hole and enters a world full of imagination.',
+        },
+        {
+          title: 'The Lord of the Rings: The Fellowship of the Ring.',
+          text: 'an unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring.',
+        },
+
+        {
+          title: 'The Lord of the Rings: The Fellowship of the Ring.',
+          text: 'an unusual alliance of man, elf, dwarf, wizard and hobbit seek to destroy a powerful ring.',
+        },
+      ];
+      expect(newIndex.lowerDocText(lowerDocFile)).toEqual(result);
+    });
+  });
+
   describe('Tests for the Search methods', () => {
     it('should return an object of words that appear in a single indexed file', () => {
       const result = { alice: [0],
@@ -202,6 +235,20 @@ describe('Tests for the InvertedIndex class', () => {
         unusual: [1] };
       expect(newIndex.searchIndex('doc.json', 'alice,an,hole a man'))
           .toEqual(result);
+    });
+
+    it('the buildSearchResult should build and return correct search result', () => {
+      const result = { alice: [0],
+        alliance: [1],
+        an: [1],
+        man: [1],
+        hole: [0],
+        a: [0],
+        falls: [0],
+        rabbit: [0],
+        unusual: [1] };
+        expect(newIndex.buildSearchResult('doc.json', 'alice,an,hole a man'))
+            .toEqual(result);
     });
 
     it('returns an object of file names against their search results for a search of all files', () => {
