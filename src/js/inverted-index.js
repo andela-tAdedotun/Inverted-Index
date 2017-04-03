@@ -9,7 +9,7 @@
 
 class InvertedIndex {
   /**
-   * readFile: Reads the contents of file as text
+   * @desc readFile: Reads the contents of file as text
    * @param {file} file - the file to be read
    * @param {string} fileName- the name of the file to be read
    * @return {promise} - promise object to be acted on if file reading is succesful or not
@@ -43,7 +43,8 @@ class InvertedIndex {
   }
 
   /**
-   * validateFile: Checks if documents in object have the specified structure of title and text keys
+   * @desc
+    validateFile: Checks if documents in object have the specified structure of title and text keys
    * @param {Object} file - the object to validate for required structure
    * @throws - throws an error if object doesn't does not have title and text keys
    * @return {Object} - returns object back to caller if object is valid
@@ -61,9 +62,9 @@ class InvertedIndex {
   }
 
   /**
-   * tokenize: Returns an array of valid words in all text fields of file.
-   // Also returns an array of valid words in a single string.
-   * @param {(Object | string)} - the object whose texts are to be tokenized or string to tokenize
+   * @desc tokenize: Returns an array of valid words in all text fields of file.
+     Also returns an array of valid words in a single string.
+   * @param {(Object | String)} - the object whose texts are to be tokenized or string to tokenize
    * @return {array} - array of valid words
    */
 
@@ -95,7 +96,7 @@ class InvertedIndex {
   }
 
   /**
-   * getTitles: Gets the titles of documents in uploaded file
+   * @desc getTitles: Gets the titles of documents in uploaded file
    * @param {Object} file - the object whose document titles you want to get
    * @return {array} - returns an array of document titles
    */
@@ -124,7 +125,7 @@ class InvertedIndex {
   }
 
   /**
-   * getTitles: Turns the text fields of documents to lower case
+   * @desc lowerDocText: Turns the text fields of documents to lower case
    * @param {Object} file - the object whose document texts you want to lower
    * @return {Object} - returns the object with its text fields lowered
    */
@@ -140,7 +141,7 @@ class InvertedIndex {
   }
 
   /**
-   * createIndex: Creates indices (words and indices of documents they appear in) for a file
+   * @desc createIndex: Creates indices (words and indices of documents they appear in) for a file
    * @param {string} fileName - the name of the file you want to index
    * @param {Object} fileContent - object representing the contents of file
    * @throws - throws an error if object does not conform to required structure
@@ -184,7 +185,8 @@ class InvertedIndex {
   }
 
   /**
-   * getRecentlyIndexed: Creates indices (words and indices of documents they appear in) for a file
+   * @desc
+   getRecentlyIndexed: Creates indices (words and indices of documents they appear in) for a file
    * @param None
    * @return {array} - returns an array of at most 15 recently indexed files
    */
@@ -200,7 +202,7 @@ class InvertedIndex {
   }
 
   /**
-   * getIndex: Gets index of fileName passed to it from localStorage
+   * @desc getIndex: Gets index of fileName passed to it from localStorage
    * @param {string} fileName - the name of the file whose index you want to get
    * @return {Object} - returns inverted index stored for file in localStorage
    */
@@ -213,9 +215,9 @@ class InvertedIndex {
   }
 
   /**
-   * getIndex: Gets index of fileName passed to it from localStorage
-   * @param {string} fileName - the name of the file whose index you want to get
-   * @return {boolean} - checks if any index has been stored in localStorage or not
+   * @desc indexInLocalStorage: Checks if any file index is stored in localStorage
+   * @param {void}
+   * @return {boolean} - false for no file. true for at least one file
    */
 
   indexInLocalStorage() {
@@ -228,7 +230,7 @@ class InvertedIndex {
   }
 
   /**
-   * buildSearchResult: Builds search result for fileName in localStorage
+   * @desc buildSearchResult: Builds search result for fileName in localStorage
    * @param {string} fileName - the name of the file to build search result for
    * @param {string} searchString - the search query (a list of words separated by any delimeter)
    * @return {Object} - object containing search words that appear in index
@@ -252,7 +254,7 @@ class InvertedIndex {
   }
 
   /**
-   * searchIndex: Searches created indices for words in search string
+   * @desc searchIndex: Searches created indices for words in search string
    * @param {string} fileName - the name of the file to build search result for
    * @param {string} searchString - the search query (a list of words separated by any delimeter)
    * @param {Object} indexedFiles - object containing more than one file names and their indices
@@ -278,7 +280,7 @@ class InvertedIndex {
   }
 
   /**
-   * deleteIndex: Deletes the specified fileName from localStorage
+   * @desc deleteIndex: Deletes the specified fileName from localStorage
    * @param {string} fileName - the name of the file you want to delete
    * @return {string}
    */
