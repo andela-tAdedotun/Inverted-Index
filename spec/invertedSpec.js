@@ -61,11 +61,11 @@ describe('Tests for the InvertedIndex class', () => {
   describe('Tests for the createIndex method', () => {
     it('should return error message for non-Array objects', () => {
       expect(() => { newIndex.createIndex('hello', 'Hello World'); })
-          .toThrow(new Error('Invalid file format. Only array of objects can be contained in file.'));
+          .toThrowError(TypeError);
       expect(() => { newIndex.createIndex('test', new Set(['a', 'the'])); })
-          .toThrow(new Error('Invalid file format. Only array of objects can be contained in file.'));
+          .toThrowError(TypeError);
       expect(() => { newIndex.createIndex('test', 200); })
-          .toThrow(new Error('Invalid file format. Only array of objects can be contained in file.'));
+          .toThrowError(TypeError);
     });
 
     it('should return error message for files with improper key values', () => {
@@ -123,7 +123,7 @@ describe('Tests for the InvertedIndex class', () => {
       };
 
       expect(() => { newIndex.createIndex('test.json', testObj); })
-       .toThrow(new Error('Invalid file format. Only array of objects can be contained in file.'));
+       .toThrowError(TypeError);
     });
   });
 

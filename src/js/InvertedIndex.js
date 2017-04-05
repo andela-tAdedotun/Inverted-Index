@@ -150,13 +150,7 @@ class InvertedIndex {
     containing indices for file and titles of documents in file
    */
   createIndex(fileName, fileContent) {
-    let fileRead;
-
-    try {
-      fileRead = this.lowerDocText(fileContent);
-    } catch (err) {
-      throw new Error(`Invalid file format. Only array of objects can be contained in file.`);
-    }
+    const fileRead = this.lowerDocText(fileContent);
 
     this.validateFile(fileRead);
 
