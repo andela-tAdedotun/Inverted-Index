@@ -155,8 +155,7 @@ class InvertedIndex {
     try {
       fileRead = this.lowerDocText(fileContent);
     } catch (err) {
-      throw new Error(`Invalid file format.
-       Only array of objects can be contained in file.`);
+      throw new Error(`Invalid file format. Only array of objects can be contained in file.`);
     }
 
     this.validateFile(fileRead);

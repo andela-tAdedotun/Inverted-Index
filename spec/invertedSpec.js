@@ -10,7 +10,8 @@ describe('Tests for the InvertedIndex class', () => {
 
     it('should throw error for invalid files', () => {
       expect(() => { newIndex.validateFile(invalidTestFile); })
-          .toThrow(new Error('Your JSON file does not have the expected format. Documents are to have title and text keys alone.'));
+          .toThrow(new Error(`Your JSON file does not have the expected format.
+          Documents are to have title and text keys alone.`));
     });
   });
 
@@ -32,7 +33,8 @@ describe('Tests for the InvertedIndex class', () => {
 
   describe('Tests for the getTitles method', () => {
     it('should return the titles of documents in an array', () => {
-      const result = ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.'];
+      const result = ['Alice in Wonderland',
+       'The Lord of the Rings: The Fellowship of the Ring.'];
       expect(newIndex.getTitles(shortFile2)).toEqual(result);
     });
 
@@ -42,12 +44,16 @@ describe('Tests for the InvertedIndex class', () => {
     });
 
     it('should append " - Copy" to title if title already exists but has different text', () => {
-      const result = ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.', 'The Lord of the Rings: The Fellowship of the Ring. - Copy'];
+      const result = ['Alice in Wonderland',
+      'The Lord of the Rings: The Fellowship of the Ring.',
+      'The Lord of the Rings: The Fellowship of the Ring. - Copy'];
       expect(newIndex.getTitles(testFile3)).toEqual(result);
     });
 
     it('should include title in array if it has the same text as another but different title name', () => {
-      const result = ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.', 'The Lord of the Rings.'];
+      const result = ['Alice in Wonderland',
+       'The Lord of the Rings: The Fellowship of the Ring.',
+        'The Lord of the Rings.'];
       expect(newIndex.getTitles(testFile2)).toEqual(result);
     });
   });
@@ -71,9 +77,11 @@ describe('Tests for the InvertedIndex class', () => {
       ];
 
       expect(() => { newIndex.createIndex('doc1.json', invalidTestFile); })
-        .toThrow(new Error('Your JSON file does not have the expected format. Documents are to have title and text keys alone.'));
+        .toThrow(new Error(`Your JSON file does not have the expected format.
+          Documents are to have title and text keys alone.`));
       expect(() => { newIndex.createIndex('test.json', test); })
-        .toThrow(new Error('Your JSON file does not have the expected format. Documents are to have title and text keys alone.'));
+        .toThrow(new Error(`Your JSON file does not have the expected format.
+          Documents are to have title and text keys alone.`));
     });
 
     it('should return the correct indices for words in documents', () => {
