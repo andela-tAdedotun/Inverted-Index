@@ -51,13 +51,16 @@ A valid JSON file is one that has this (EXACT) structure:
 - Select any file you want indexed and click on the 'Create Index' button
 
 ###### The Output
-Once you've performed the above, a table is displayed containing a mapping of words and documents they appear in:
+
+**Once you've performed the above, a table is displayed containing a mapping of words and documents they appear in:**
 ![Inverted Index Table](http://i.imgur.com/KBtKPhf.png)
 
-For files with duplicates like the example valid file above, duplicates are treated as one.
+**For files with duplicates like the example valid file above, duplicates are treated as one.**
+
 ![Duplicates in File](http://i.imgur.com/jwiKpCV.png)
 
-If, for example, one of the 'The Lord of the Rings: The Fellowship of the Ring.' has different content from the other, the table looks like this:
+**If, for example, one of the 'The Lord of the Rings: The Fellowship of the Ring.' has different content from the other, the table looks like this:**
+
 ![Duplicates with Different Contents](http://i.imgur.com/KAoJmMf.png)
 
 *Documents with the same content but different titles, like in the first picture, are treated as separate documents. 'The Lord of the Rings: The Fellowship of the Ring.' and 'The Lord of the Rings' have the same content*
@@ -69,10 +72,12 @@ to search through all indexed files.
 - Live search is implemented. You'll see search results as you type.
 
 ###### The Output
-Search through one file:
+
+**Search through one file:**
 ![Search Result for One File](http://i.imgur.com/VQvXEsz.png)
 
-Search through all indexed files:
+**Search through all indexed files:**
+
 ![Search Result for All Files](http://i.imgur.com/OsTud05.png)
 
 ##### Viewing History of Indexed Files
