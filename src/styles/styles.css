@@ -3,8 +3,8 @@
 }
 
 body {
-  margin-left: 100px;
-  margin-right: 100px;
+  margin-left: 40px;
+  margin-right: 40px;
   position: relative;
 }
 
@@ -236,12 +236,11 @@ button {
     text-align: center;
   }
 
-  #littleAbout {
+  #littleAboutButton {
     background-color: #0094ce;
-    display: inline;
+    display: inline-block;
     float: right;
     margin-bottom: 10px;
-    margin-right: 5px;
   }
 
   #searchbox input#search {
