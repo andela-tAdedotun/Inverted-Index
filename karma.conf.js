@@ -15,7 +15,7 @@ module.exports = (config) => {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/js/inverted-index.js',
+      'src/js/InvertedIndex.js',
       'spec/test_files/testFiles.js',
       'spec/invertedSpec.js',
     ],
@@ -28,9 +28,10 @@ module.exports = (config) => {
 
 
     // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    /* available preprocessors:
+     https://npmjs.org/browse/keyword/karma-preprocessor */
     preprocessors: {
-      './src/js/inverted-index.js': ['coverage'],
+      './src/js/InvertedIndex.js': ['coverage'],
     },
 
 
@@ -59,12 +60,14 @@ module.exports = (config) => {
     logLevel: config.LOG_INFO,
 
 
-    // enable / disable watching file and executing tests whenever any file changes
+    /* enable / disable
+     watching file and executing tests whenever any file changes */
     autoWatch: true,
 
 
     // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    /* available browser launchers:
+        https://npmjs.org/browse/keyword/karma-launcher */
     browsers: ['Chrome'],
 
     customLaunchers: {

@@ -1,8 +1,8 @@
 {
-  "name": "inverted-index",
+  "name": "InvertedIndex",
   "version": "0.0.1",
   "description": "An implememntation of the inverted index data structure",
-  "main": "/src/js/inverted-index.js",
+  "main": "/src/js/InvertedIndex.js",
   "scripts": {
     "test": "karma start --single-run",
     "start": "node server.js"
