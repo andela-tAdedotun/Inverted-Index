@@ -18,13 +18,13 @@
         <li id="home"><a href="#">Inverted Index</a></li>
 
       <div class="nav-buttons">
-        <div ng-show="indexInLocalStorage" class="dropdown right">
+        <div ng-show="indexInLocalStorage()" class="dropdown right">
           <button id="dropdown" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Recently Indexed <span class="caret"></span> </button>
-                <ul class="dropdown-menu" ng-if="recentlyIndexed.length" ng-click="$event.stopPropagation()">
-                  <li ng-repeat="file in recentlyIndexed track by $index" style="display: block; cursor: pointer">
+                <ul class="dropdown-menu" ng-if="recentlyIndexed().length" ng-click="$event.stopPropagation()">
+                  <li ng-repeat="file in recentlyIndexed() track by $index" style="display: block; cursor: pointer">
                     <div style="margin-left: 10px">
                       <a ng-click="getIndex(file)" style="float: left">{{file}}</a>
-                      <a ng-click="deleteIndex(file)" style="color: #c42940; float: right;" ng-show="recentlyIndexed[recentlyIndexed.indexOf(file)]">x</a>
+                      <a ng-click="deleteIndex(file)" style="color: #c42940; float: right;" ng-show="recentlyIndexed()[recentlyIndexed().indexOf(file)]">x</a>
                     </div>
                   </li>
 
@@ -50,7 +50,7 @@
         </div>
 
         <div class="dropdown" id="dropdownSmall">
-          <div ng-show="indexInLocalStorage" class="dropdown right">
+          <div ng-show="indexInLocalStorage()" class="dropdown right">
           <button id="dropdown" class="btn btn-primary" data-toggle="dropdown"> <i class="fa fa-file"></i> </button>
               <ul class="dropdown-menu" ng-if="recentlyIndexed.length" ng-click="$event.stopPropagation()">
                 <li ng-repeat="file in recentlyIndexed track by $index" style="display: block; cursor: pointer;">
@@ -160,7 +160,7 @@
           <thead>
             <tr>
               <th>Words</th>
-              {{tableHeads = newIndex.getIndex(file)[1]; ""}}
+              {{tableHeads = fileIndices[file][1]; ""}}
               <th ng-repeat="title in tableHeads track by $index">{{title}}</th>
             </tr>
           </thead>
