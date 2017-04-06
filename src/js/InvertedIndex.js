@@ -1,12 +1,15 @@
-/* global FileReader */
-/* global localStorage */
-/* exported InvertedIndex */
-
 /**
  * Implementation of the inverted index app.
  * @class
  */
 class InvertedIndex {
+  /**
+   * @desc Initializes indexedFiles object
+   */
+  constructor() {
+    this.indexedFiles = {};
+  }
+
   /**
    * @desc readFile: Reads the contents of file as text
    * @param {file} file - the file to be read
@@ -150,7 +153,13 @@ class InvertedIndex {
     containing indices for file and titles of documents in file
    */
   createIndex(fileName, fileContent) {
-    const fileRead = this.lowerDocText(fileContent);
+    let fileRead;
+    try {
+      fileRead = this.lowerDocText(fileContent);
+    } catch (err) {
+      throw new Error('This file\'s structure is ' +
+      'invalid. Only array of objects are allowed.');
+    }
 
     this.validateFile(fileRead);
 
@@ -172,67 +181,24 @@ class InvertedIndex {
     });
 
     const fileTitles = this.getTitles(fileContent);
+    this.indexedFiles[fileName] = [indices, fileName, fileTitles];
 
-    const indexedDocs = JSON.parse(localStorage.indexedDocs);
-    indexedDocs[fileName] = [indices, fileTitles];
-    localStorage.indexedDocs = JSON.stringify(indexedDocs);
-    return [indices, fileName];
+    return this.indexedFiles;
   }
 
   /**
-   * @desc
-   getRecentlyIndexed:
-   Creates indices (words and indices of documents they appear in) for a file
-   * @return {array} - returns an array of at most 15 recently indexed files
-   */
-  getRecentlyIndexed() {
-    if (!localStorage.indexedDocs) {
-      localStorage.indexedDocs = JSON.stringify({});
-    }
-
-    this.allRecentlyIndexed = Object.keys(JSON.parse(localStorage.indexedDocs));
-    this.allRecentlyIndexed = this.allRecentlyIndexed.slice(0, 15);
-    return this.allRecentlyIndexed;
-  }
-
-  /**
-   * @desc getIndex: Gets index of fileName passed to it from localStorage
-   * @param {string} fileName - the name of the file whose index you want to get
-   * @return {Object} - returns inverted index stored for file in localStorage
-   */
-  getIndex(fileName) {
-    this.fileName = fileName;
-    const fileIndices = JSON.parse(localStorage.indexedDocs)[this.fileName];
-
-    return fileIndices;
-  }
-
-  /**
-   * @desc indexInLocalStorage:
-   Checks if any file index is stored in localStorage
-   * @return {boolean} - false for no file. true for at least one file
-   */
-  indexInLocalStorage() {
-    this.filesInStorage = Object.keys(JSON.parse(localStorage.indexedDocs));
-    if (this.filesInStorage.length === 0) {
-      return false;
-    }
-
-    return true;
-  }
-
-  /**
-   * @desc buildSearchResult: Builds search result for fileName in localStorage
+   * @desc buildSearchResult: Builds search result for fileName
    * @param {string} fileName - the name of the file to build search result for
    * @param {string} searchString
+   * @param {Object} indexedFiles
    - the search query (a list of words separated by any delimeter)
    * @return {Object} - object containing search words that appear in index
    */
-  buildSearchResult(fileName, searchString) {
+  buildSearchResult(fileName, searchString, indexedFiles) {
     this.fileName = fileName;
     const searchWords = this.tokenize(searchString.toLowerCase());
     const searchResults = {};
-    const indexOfFile = JSON.parse(localStorage.indexedDocs)[this.fileName][0];
+    const indexOfFile = indexedFiles[this.fileName][0];
 
     searchWords.forEach((searchItem) => {
       Object.keys(indexOfFile).forEach((word) => {
@@ -263,32 +229,14 @@ class InvertedIndex {
       const allFiles = Object.keys(indexedFiles);
 
       allFiles.forEach((file) => {
-        resultForFile[file] = this.buildSearchResult(file, searchString);
+        resultForFile[file] =
+            this.buildSearchResult(file, searchString, indexedFiles);
       });
 
       return resultForFile;
     }
 
-    return this.buildSearchResult(this.fileName, this.searchString);
+    return this.buildSearchResult(this.fileName
+        , this.searchString, indexedFiles);
   }
-
-  /**
-   * @desc deleteIndex: Deletes the specified fileName from localStorage
-   * @param {string} fileName - the name of the file you want to delete
-   * @return {string} - returns string saying index is deleted
-   */
-  deleteIndex(fileName) {
-    this.fileName = fileName;
-
-    if (fileName === 'Delete All') {
-      localStorage.indexedDocs = JSON.stringify({});
-    } else {
-      const fileIndices = JSON.parse(localStorage.indexedDocs);
-      delete fileIndices[this.fileName];
-      localStorage.indexedDocs = JSON.stringify(fileIndices);
-    }
-
-    return 'File index deleted';
-  }
-
 }
