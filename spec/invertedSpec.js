@@ -61,11 +61,14 @@ describe('Tests for the InvertedIndex class', () => {
   describe('Tests for the createIndex method', () => {
     it('should return error message for non-Array objects', () => {
       expect(() => { newIndex.createIndex('hello', 'Hello World'); })
-          .toThrowError(TypeError);
+          .toThrow(new Error('This file\'s structure is ' +
+          'invalid. Only array of objects are allowed.'));
       expect(() => { newIndex.createIndex('test', new Set(['a', 'the'])); })
-          .toThrowError(TypeError);
+          .toThrow(new Error('This file\'s structure is ' +
+          'invalid. Only array of objects are allowed.'));
       expect(() => { newIndex.createIndex('test', 200); })
-          .toThrowError(TypeError);
+          .toThrow(new Error('This file\'s structure is ' +
+          'invalid. Only array of objects are allowed.'));
     });
 
     it('should return error message for files with improper key values', () => {
@@ -97,10 +100,11 @@ describe('Tests for the InvertedIndex class', () => {
         of: [1],
         rabbit: [0],
         unusual: [1] };
-      expect(newIndex.createIndex('doc.json', shortFile2)[0]).toEqual(result);
+      expect(newIndex.createIndex('doc.json', shortFile2)['doc.json'][0]).toEqual(result);
     });
 
-    it('returns an array of file indices and the file name', () => {
+    it('returns an object of key file name and value of array of file indices,' +
+     'file name and file titles', () => {
       const result = [{ a: [0],
         alice: [0],
         alliance: [1],
@@ -112,8 +116,8 @@ describe('Tests for the InvertedIndex class', () => {
         man: [1],
         of: [1],
         rabbit: [0],
-        unusual: [1] }, 'doc.json'];
-      expect(newIndex.createIndex('doc.json', shortFile2)).toEqual(result);
+        unusual: [1] }, 'doc.json', ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.']];
+      expect(newIndex.createIndex('doc.json', shortFile2)['doc.json']).toEqual(result);
     });
 
     it('should only accept an array of objects', () => {
@@ -123,77 +127,8 @@ describe('Tests for the InvertedIndex class', () => {
       };
 
       expect(() => { newIndex.createIndex('test.json', testObj); })
-       .toThrowError(TypeError);
-    });
-  });
-
-  describe('Tests for the getIndex method', () => {
-    it('should retrieve an array of file indices and array of file titles from localStorage', () => {
-      const result = [{ a: [0],
-        alice: [0],
-        alliance: [1],
-        an: [1],
-        elf: [1],
-        falls: [0],
-        hole: [0],
-        into: [0],
-        man: [1],
-        of: [1],
-        rabbit: [0],
-        unusual: [1] }, ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.']];
-      expect(newIndex.getIndex('doc.json')).toEqual(result);
-    });
-
-    it('should retrieve indices of file from localStorage', () => {
-      const result = { a: [0],
-        alice: [0],
-        alliance: [1],
-        an: [1],
-        elf: [1],
-        falls: [0],
-        hole: [0],
-        into: [0],
-        man: [1],
-        of: [1],
-        rabbit: [0],
-        unusual: [1] };
-      expect(newIndex.getIndex('doc.json')[0]).toEqual(result);
-    });
-  });
-
-  describe('Tests for the indexInLocalStorage method', () => {
-    it('returns true if at least one file index is stored in localStorage', () => {
-      // doc.json has been stored by createIndex above
-      expect(newIndex.indexInLocalStorage()).toBeTruthy();
-    });
-
-    it('returns false if no file has been indexed', () => {
-      localStorage.indexedDocs = JSON.stringify({});
-      expect(newIndex.indexInLocalStorage()).toBeFalsy();
-    });
-  });
-
-  describe('Tests for the getRecentlyIndexed method', () => {
-    it('only returns an array of 15 most recently indexed files', () => {
-      for (let i = 0; i < 20; i += 1) {
-        const fileName = `test${String(i)}.json`;
-        newIndex.createIndex(fileName, testFile);
-      }
-
-      const recentlyIndexedFiles = newIndex.getRecentlyIndexed();
-      expect(recentlyIndexedFiles.length).toEqual(15);
-    });
-
-    it('initializes indexedDocs object in the localStorage', () => {
-      localStorage.clear();
-      newIndex.getRecentlyIndexed();
-      expect(!!localStorage.indexedDocs).toBeTruthy();
-    });
-
-    it('returns an array of file names in indexedDocs in localStorage', () => {
-      newIndex.createIndex('doc.json', shortFile2);
-      newIndex.createIndex('test.json', testFile);
-      expect(newIndex.getRecentlyIndexed()).toEqual(['doc.json', 'test.json']);
+       .toThrow(new Error('This file\'s structure is ' +
+       'invalid. Only array of objects are allowed.'));
     });
   });
 
@@ -231,6 +166,16 @@ describe('Tests for the InvertedIndex class', () => {
   });
 
   describe('Tests for the Search methods', () => {
+    const docJsonMock = {'doc.json': [{ alice: [0],
+      alliance: [1],
+      an: [1],
+      man: [1],
+      hole: [0],
+      a: [0],
+      falls: [0],
+      rabbit: [0],
+      unusual: [1] }, ['Alice in Wonderland', 'The Lord of the Rings: The Fellowship of the Ring.']]};
+
     it('should return an object of words that appear in a single indexed file', () => {
       const result = { alice: [0],
         alliance: [1],
@@ -241,7 +186,7 @@ describe('Tests for the InvertedIndex class', () => {
         falls: [0],
         rabbit: [0],
         unusual: [1] };
-      expect(newIndex.searchIndex('doc.json', 'alice,an,hole a man'))
+      expect(newIndex.searchIndex('doc.json', 'alice,an,hole a man', docJsonMock))
           .toEqual(result);
     });
 
@@ -255,12 +200,12 @@ describe('Tests for the InvertedIndex class', () => {
         falls: [0],
         rabbit: [0],
         unusual: [1] };
-        expect(newIndex.buildSearchResult('doc.json', 'alice,an,hole a man'))
+        expect(newIndex.buildSearchResult('doc.json', 'alice,an,hole a man', docJsonMock))
             .toEqual(result);
     });
 
     it('returns an object of file names against their search results for a search of all files', () => {
-      const allFilesResult = newIndex.searchIndex('All Files', 'alice,an,hole,a - man', JSON.parse(localStorage.indexedDocs));
+      const allFilesResult = newIndex.searchIndex('All Files', 'alice,an,hole,a - man', allFilesMock);
       const result = { 'doc.json': {
         alice: [0],
         alliance: [1],
@@ -299,26 +244,14 @@ describe('Tests for the InvertedIndex class', () => {
         falls: [0],
         rabbit: [0],
         unusual: [1] };
-      expect(newIndex.searchIndex('doc.json', 'ALICE,AN,HOLE A MAN')).toEqual(result);
+      expect(newIndex.searchIndex('doc.json', 'ALICE,AN,HOLE A MAN', docJsonMock)).toEqual(result);
     });
 
     it('should return words containing substring in search query', () => {
       const result = { alliance: [1],
         an: [1],
         man: [1] };
-      expect(newIndex.searchIndex('doc.json', 'an')).toEqual(result);
-    });
-  });
-
-  describe('Tests for the deleteIndex method', () => {
-    it('should properly delete stored indices from localStorage', () => {
-      newIndex.deleteIndex('doc.json');
-      expect(localStorage.indexedDocs['doc.json']).toBeUndefined();
-    });
-
-    it('should delete all stored indices when "Delete All" is passed in', () => {
-      newIndex.deleteIndex('Delete All');
-      expect(Object.keys(JSON.parse(localStorage.indexedDocs)).length).toEqual(0);
+      expect(newIndex.searchIndex('doc.json', 'an', docJsonMock)).toEqual(result);
     });
   });
 });
