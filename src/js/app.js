@@ -9,8 +9,6 @@
     scope.tableHeads = [];
     scope.searchString = document.getElementById('search').innerHTML;
 
-    // scope.indexInLocalStorage = scope.newIndex.indexInLocalStorage();
-
     scope.displayCreate = false;
     scope.displayIndex = false;
 
@@ -35,7 +33,7 @@
         const fileName = file.name;
 
         try {
-          scope.newIndex.readFile(file, fileName).then((content) => {
+          InvertedIndex.readFile(file, fileName).then((content) => {
             scope.uploadedFiles[fileName] = angular.fromJson(content);
             scope.displayCreate = true;
             const uploadedFilesList = Object.keys(scope.uploadedFiles);
@@ -59,7 +57,6 @@
       try {
         const createdIndex =
         scope.newIndex.createIndex(fileChoice, scope.uploadedFiles[fileChoice]);
-        // console.log(createdIndex);
         scope.indexedFiles[fileChoice] = createdIndex[fileChoice][0];
 
         const indexedDocs = angular.fromJson(localStorage.indexedDocs);
@@ -71,7 +68,7 @@
         const indexedFilesList = Object.keys(scope.indexedFiles);
 
         scope.tableHeads =
-         scope.newIndex.getTitles(scope.uploadedFiles[fileChoice]);
+         InvertedIndex.getTitles(scope.uploadedFiles[fileChoice]);
         scope.fileToSearch = indexedFilesList[indexedFilesList.length - 1];
 
         if (indexedFilesList.length > 1) {
@@ -92,6 +89,8 @@
 
       const allRecentlyIndexed =
          Object.keys(JSON.parse(localStorage.indexedDocs));
+      scope.moreThanOneStored = allRecentlyIndexed.length > 1;
+
       return allRecentlyIndexed;
     };
 
@@ -105,22 +104,18 @@
       return true;
     };
 
-    scope.moreThanOneStored = scope.recentlyIndexed().length > 1;
-
     scope.searchIndex = () => {
       scope.fileIndices = angular.fromJson(localStorage.indexedDocs);
-      // scope.tableHeads = fileIndices[2];
       scope.searchResult = {};
 
       if (scope.fileToSearch === 'All Files') {
-        scope.searchResult = scope.newIndex.searchIndex('All Files'
-        , scope.searchString, scope.fileIndices);
+        scope.searchResult = InvertedIndex.searchIndex('All Files',
+          scope.searchString, scope.fileIndices);
         scope.displayIndex = false;
         scope.allFiles = true;
       } else {
-        scope.searchResult[scope.fileToSearch] =
-            scope.newIndex.searchIndex(scope.fileToSearch
-                 , scope.searchString, scope.fileIndices);
+        scope.searchResult[scope.fileToSearch] = InvertedIndex
+        .searchIndex(scope.fileToSearch, scope.searchString, scope.fileIndices);
       }
 
       scope.displayIndex = false;
@@ -128,9 +123,6 @@
 
     scope.getIndex = (fileName) => {
       const fileIndices = angular.fromJson(localStorage.indexedDocs)[fileName];
-      // console.log(fileIndices)
-
-      // return fileIndices;
 
       scope.indexedFiles[fileName] = fileIndices[0];
       scope.uploadedFiles[fileName] = [scope.indexedFiles[fileName]];
