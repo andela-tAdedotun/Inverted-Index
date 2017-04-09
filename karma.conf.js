@@ -17,7 +17,7 @@ module.exports = (config) => {
     files: [
       'src/js/InvertedIndex.js',
       'spec/test_files/testFiles.js',
-      'spec/invertedSpec.js',
+      'spec/InvertedIndexSpec.js',
     ],
 
 
