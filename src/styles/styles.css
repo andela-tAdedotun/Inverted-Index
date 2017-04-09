@@ -20,6 +20,10 @@ body {
   display: none;
 }
 
+.dropdown-menu {
+  width: 190px;
+}
+
 .nav-buttons {
   display: inline;
 }
