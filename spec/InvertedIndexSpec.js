@@ -1,10 +1,39 @@
 const newIndex = new InvertedIndex();
+const testJson = require('./test_files/test.json');
 
 describe('Tests for the InvertedIndex class', () => {
   describe('The readFile method', () => {
     it('should return false for files not in JSON format', () => {
       expect(InvertedIndex.readFile(testFile, 'testFile.jpg')).toBeFalsy();
       expect(InvertedIndex.readFile(testFile, 'testFile.jsona')).toBeFalsy();
+      expect(InvertedIndex.readFile(testFile, 'testFile.jso')).toBeFalsy();
+    });
+
+    it('should return the contents of a file after reading', () => {
+      const testJsonContent =
+       '[{"title":"Alice in Wonderland","text":"Alice falls into a ' +
+       'rabbit hole and enters a world full of imagination."}]';
+
+      const validBlob =
+       new Blob([JSON.stringify(testJson)], { type: 'application/json' });
+      return InvertedIndex
+      .readFile(validBlob, 'test.json').then((fileContent) => {
+        expect(fileContent).toEqual(testJsonContent);
+      });
+    });
+
+    it('should throw an error for invalid JSON files', () => {
+      // readFile tries to parse JSON. If it can't it throws an error
+      const invalidBlob =
+       new Blob([testJson], { type: 'application/json' });
+
+      return InvertedIndex
+      .readFile(invalidBlob, 'test.json').then(() => {
+        // do nothing
+      }).catch((err) => {
+        expect(err)
+        .toEqual('This JSON file is invalid. Check the file and try again.');
+      });
     });
   });
 
