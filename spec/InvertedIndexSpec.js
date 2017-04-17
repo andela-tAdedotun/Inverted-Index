@@ -1,15 +1,22 @@
 const newIndex = new InvertedIndex();
 
 describe('Tests for the InvertedIndex class', () => {
+  describe('The readFile method', () => {
+    it('should return false for files not in JSON format', () => {
+      expect(InvertedIndex.readFile(testFile, 'testFile.jpg')).toBeFalsy();
+      expect(InvertedIndex.readFile(testFile, 'testFile.jsona')).toBeFalsy();
+    });
+  });
+
   describe('The validateFile method', () => {
     it('should return error message for non-Array objects', () => {
-      expect(() => { newIndex.createIndex('hello', 'Hello World'); })
+      expect(() => { InvertedIndex.validateFile('Hello World'); })
           .toThrow(new Error(`This file's structure is invalid.
        Only array of objects are allowed.`));
-      expect(() => { newIndex.createIndex('test', new Set(['a', 'the'])); })
+      expect(() => { InvertedIndex.validateFile('test', new Set(['the'])); })
           .toThrow(new Error(`This file's structure is invalid.
        Only array of objects are allowed.`));
-      expect(() => { newIndex.createIndex('test', 200); })
+      expect(() => { InvertedIndex.validateFile('test', 200); })
           .toThrow(new Error(`This file's structure is invalid.
        Only array of objects are allowed.`));
     });
