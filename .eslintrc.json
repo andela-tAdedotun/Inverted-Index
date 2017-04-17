@@ -15,7 +15,16 @@
         "InvertedIndex": false,
         "angular": false,
         "document": false,
-        "$": false
+        "$": false,
+        "Blob": false,
+        "testFile": false,
+        "invalidTestFile": false,
+        "shortFile": false,
+        "shortValidFile": false,
+        "noDuplicateTitles": false,
+        "noDuplicateText": false,
+        "lowerDocumentFile": false,
+        "allFilesMock": false
     },
     "rules": {
     "max-len": ["error", 80, 4],
