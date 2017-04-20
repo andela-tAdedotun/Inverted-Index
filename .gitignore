@@ -1,6 +1,9 @@
 .DS_Store
 node_modules/
 test copy.json
-test.json
+./test.json
 test2.json
-coverage/
+/coverage.data
+/coverage/
+spec/bundle.js
+

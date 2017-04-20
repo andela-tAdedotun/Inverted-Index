@@ -1,10 +1,11 @@
 {
-  "name": "inverted-index",
+  "name": "InvertedIndex",
   "version": "0.0.1",
   "description": "An implememntation of the inverted index data structure",
-  "main": "/src/js/inverted-index.js",
+  "main": "/src/js/InvertedIndex.js",
   "scripts": {
-    "test": "karma start --single-run"
+    "test": "karma start --single-run",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -20,15 +21,27 @@
     "browser-sync": "^2.18.8",
     "eslint": "^3.17.1",
     "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-config-angular": "^0.5.0",
+    "eslint-plugin-angular": "^2.2.1",
     "eslint-plugin-import": "^2.2.0",
-    "gulp": "^3.9.1",
+    "eslint-plugin-jasmine": "^2.2.0",
     "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
+    "jasmine-promises": "^0.4.1",
     "karma": "^1.5.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-cli": "^1.0.1",
+    "karma-coverage": "^1.1.1",
+    "karma-coveralls": "^1.1.2",
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.4",
+    "karma-verbose-reporter": "0.0.6",
     "phantomjs": "^2.1.7"
+  },
+  "dependencies": {
+    "angular-typed": "0.0.3",
+    "express": "^4.15.2",
+    "file-api": "^0.10.4",
+    "gulp": "^3.9.1"
   }
 }

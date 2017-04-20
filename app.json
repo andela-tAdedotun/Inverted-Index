@@ -1,0 +1,19 @@
+{
+  "name": "Inverted-Index",
+  "description": "",
+
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

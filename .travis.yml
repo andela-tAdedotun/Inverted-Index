@@ -13,5 +13,10 @@ before_install:
 
 before_script:
   - npm install
+  - npm install -g browserify
+  - browserify spec/InvertedIndexSpec.js > spec/bundle.js
 
-script: karma start --single-run
+script: npm test
+
+after_script:
+- cat ./coverage/**/lcov.info | ./node_modules/.bin/coveralls
